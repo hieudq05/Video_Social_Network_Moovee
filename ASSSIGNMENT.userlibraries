@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eclipse-userlibraries>
+  <library name="Maven: org.glassfish.jaxb:jaxb-runtime:4.0.5">
+    <archive path="/Users/admin/.m2/repository/org/glassfish/jaxb/jaxb-runtime/4.0.5/jaxb-runtime-4.0.5.jar" />
+  </library>
+  <library name="Maven: org.junit.jupiter:junit-jupiter-api:5.11.0-M2">
+    <archive path="/Users/admin/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.11.0-M2/junit-jupiter-api-5.11.0-M2.jar" />
+  </library>
+  <library name="Maven: jakarta.servlet:jakarta.servlet-api:6.1.0">
+    <archive path="/Users/admin/.m2/repository/jakarta/servlet/jakarta.servlet-api/6.1.0/jakarta.servlet-api-6.1.0.jar" />
+  </library>
+  <library name="Maven: org.hibernate.orm:hibernate-core:7.0.0.Alpha3">
+    <archive path="/Users/admin/.m2/repository/org/hibernate/orm/hibernate-core/7.0.0.Alpha3/hibernate-core-7.0.0.Alpha3.jar" />
+  </library>
+  <library name="Maven: org.junit.jupiter:junit-jupiter-engine:5.11.0-M2">
+    <archive path="/Users/admin/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.11.0-M2/junit-jupiter-engine-5.11.0-M2.jar" />
+  </library>
+  <library name="Maven: org.junit.platform:junit-platform-engine:1.11.0-M2">
+    <archive path="/Users/admin/.m2/repository/org/junit/platform/junit-platform-engine/1.11.0-M2/junit-platform-engine-1.11.0-M2.jar" />
+  </library>
+  <library name="Maven: org.apiguardian:apiguardian-api:1.1.2">
+    <archive path="/Users/admin/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar" />
+  </library>
+  <library name="Maven: org.junit.platform:junit-platform-commons:1.11.0-M2">
+    <archive path="/Users/admin/.m2/repository/org/junit/platform/junit-platform-commons/1.11.0-M2/junit-platform-commons-1.11.0-M2.jar" />
+  </library>
+  <library name="Maven: org.opentest4j:opentest4j:1.3.0">
+    <archive path="/Users/admin/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar" />
+  </library>
+  <library name="Maven: jakarta.inject:jakarta.inject-api:2.0.1">
+    <archive path="/Users/admin/.m2/repository/jakarta/inject/jakarta.inject-api/2.0.1/jakarta.inject-api-2.0.1.jar" />
+  </library>
+  <library name="Maven: org.antlr:antlr4-runtime:4.13.0">
+    <archive path="/Users/admin/.m2/repository/org/antlr/antlr4-runtime/4.13.0/antlr4-runtime-4.13.0.jar" />
+  </library>
+  <library name="Maven: jakarta.xml.bind:jakarta.xml.bind-api:4.0.0">
+    <archive path="/Users/admin/.m2/repository/jakarta/xml/bind/jakarta.xml.bind-api/4.0.0/jakarta.xml.bind-api-4.0.0.jar" />
+  </library>
+  <library name="Maven: jakarta.activation:jakarta.activation-api:2.1.0">
+    <archive path="/Users/admin/.m2/repository/jakarta/activation/jakarta.activation-api/2.1.0/jakarta.activation-api-2.1.0.jar" />
+  </library>
+  <library name="Maven: com.sun.istack:istack-commons-runtime:4.1.2">
+    <archive path="/Users/admin/.m2/repository/com/sun/istack/istack-commons-runtime/4.1.2/istack-commons-runtime-4.1.2.jar" />
+  </library>
+  <library name="Maven: org.glassfish.jaxb:txw2:4.0.5">
+    <archive path="/Users/admin/.m2/repository/org/glassfish/jaxb/txw2/4.0.5/txw2-4.0.5.jar" />
+  </library>
+  <library name="Maven: org.eclipse.angus:angus-activation:2.0.2">
+    <archive path="/Users/admin/.m2/repository/org/eclipse/angus/angus-activation/2.0.2/angus-activation-2.0.2.jar" />
+  </library>
+  <library name="Maven: org.glassfish.jaxb:jaxb-core:4.0.5">
+    <archive path="/Users/admin/.m2/repository/org/glassfish/jaxb/jaxb-core/4.0.5/jaxb-core-4.0.5.jar" />
+  </library>
+  <library name="Maven: jakarta.transaction:jakarta.transaction-api:2.0.1">
+    <archive path="/Users/admin/.m2/repository/jakarta/transaction/jakarta.transaction-api/2.0.1/jakarta.transaction-api-2.0.1.jar" />
+  </library>
+  <library name="Maven: org.jboss.logging:jboss-logging:3.5.0.Final">
+    <archive path="/Users/admin/.m2/repository/org/jboss/logging/jboss-logging/3.5.0.Final/jboss-logging-3.5.0.Final.jar" />
+  </library>
+  <library name="Maven: jakarta.persistence:jakarta.persistence-api:3.2.0-M2">
+    <archive path="/Users/admin/.m2/repository/jakarta/persistence/jakarta.persistence-api/3.2.0-M2/jakarta.persistence-api-3.2.0-M2.jar" />
+  </library>
+  <library name="Maven: com.fasterxml:classmate:1.5.1">
+    <archive path="/Users/admin/.m2/repository/com/fasterxml/classmate/1.5.1/classmate-1.5.1.jar" />
+  </library>
+  <library name="Maven: net.bytebuddy:byte-buddy:1.14.15">
+    <archive path="/Users/admin/.m2/repository/net/bytebuddy/byte-buddy/1.14.15/byte-buddy-1.14.15.jar" />
+  </library>
+  <library name="Maven: org.hibernate.models:hibernate-models:0.8.5">
+    <archive path="/Users/admin/.m2/repository/org/hibernate/models/hibernate-models/0.8.5/hibernate-models-0.8.5.jar" />
+  </library>
+  <library name="Maven: io.smallrye:jandex:3.1.2">
+    <archive path="/Users/admin/.m2/repository/io/smallrye/jandex/3.1.2/jandex-3.1.2.jar" />
+  </library>
+  <library name="Maven: org.projectlombok:lombok:1.18.32">
+    <archive path="/Users/admin/.m2/repository/org/projectlombok/lombok/1.18.32/lombok-1.18.32.jar" />
+  </library>
+  <library name="Maven: commons-collections:commons-collections:3.2.2">
+    <archive path="/Users/admin/.m2/repository/commons-collections/commons-collections/3.2.2/commons-collections-3.2.2.jar" />
+  </library>
+  <library name="Maven: commons-logging:commons-logging:1.2">
+    <archive path="/Users/admin/.m2/repository/commons-logging/commons-logging/1.2/commons-logging-1.2.jar" />
+  </library>
+  <library name="Maven: commons-beanutils:commons-beanutils:1.9.4">
+    <archive path="/Users/admin/.m2/repository/commons-beanutils/commons-beanutils/1.9.4/commons-beanutils-1.9.4.jar" />
+  </library>
+  <library name="Maven: org.apache.commons:commons-collections4:4.4">
+    <archive path="/Users/admin/.m2/repository/org/apache/commons/commons-collections4/4.4/commons-collections4-4.4.jar" />
+  </library>
+  <library name="Maven: org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.1">
+    <archive path="/Users/admin/.m2/repository/org/glassfish/web/jakarta.servlet.jsp.jstl/3.0.1/jakarta.servlet.jsp.jstl-3.0.1.jar" />
+  </library>
+  <library name="Maven: jakarta.el:jakarta.el-api:5.0.0">
+    <archive path="/Users/admin/.m2/repository/jakarta/el/jakarta.el-api/5.0.0/jakarta.el-api-5.0.0.jar" />
+  </library>
+  <library name="Maven: jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:3.0.0">
+    <archive path="/Users/admin/.m2/repository/jakarta/servlet/jsp/jstl/jakarta.servlet.jsp.jstl-api/3.0.0/jakarta.servlet.jsp.jstl-api-3.0.0.jar" />
+  </library>
+  <library name="Maven: com.microsoft.sqlserver:mssql-jdbc:12.8.1.jre11">
+    <archive path="/Users/admin/.m2/repository/com/microsoft/sqlserver/mssql-jdbc/12.8.1.jre11/mssql-jdbc-12.8.1.jre11.jar" />
+  </library>
+  <library name="Maven: at.favre.lib:bytes:1.3.0">
+    <archive path="/Users/admin/.m2/repository/at/favre/lib/bytes/1.3.0/bytes-1.3.0.jar" />
+  </library>
+  <library name="Maven: at.favre.lib:bcrypt:0.9.0">
+    <archive path="/Users/admin/.m2/repository/at/favre/lib/bcrypt/0.9.0/bcrypt-0.9.0.jar" />
+  </library>
+  <library name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.16.1">
+    <archive path="/Users/admin/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.16.1/jackson-annotations-2.16.1.jar" />
+  </library>
+  <library name="Maven: com.fasterxml.jackson.core:jackson-databind:2.16.1">
+    <archive path="/Users/admin/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.16.1/jackson-databind-2.16.1.jar" />
+  </library>
+  <library name="Maven: com.fasterxml.jackson.core:jackson-core:2.16.1">
+    <archive path="/Users/admin/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.16.1/jackson-core-2.16.1.jar" />
+  </library>
+  <library name="Maven: com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.15.0">
+    <archive path="/Users/admin/.m2/repository/com/fasterxml/jackson/datatype/jackson-datatype-jsr310/2.15.0/jackson-datatype-jsr310-2.15.0.jar" />
+  </library>
+  <library name="Maven: org.apache.httpcomponents:fluent-hc:4.5.13">
+    <archive path="/Users/admin/.m2/repository/org/apache/httpcomponents/fluent-hc/4.5.13/fluent-hc-4.5.13.jar" />
+  </library>
+  <library name="Maven: com.google.code.gson:gson:2.8.9">
+    <archive path="/Users/admin/.m2/repository/com/google/code/gson/gson/2.8.9/gson-2.8.9.jar" />
+  </library>
+  <library name="Maven: commons-codec:commons-codec:1.11">
+    <archive path="/Users/admin/.m2/repository/commons-codec/commons-codec/1.11/commons-codec-1.11.jar" />
+  </library>
+  <library name="Maven: org.apache.httpcomponents:httpcore:4.4.13">
+    <archive path="/Users/admin/.m2/repository/org/apache/httpcomponents/httpcore/4.4.13/httpcore-4.4.13.jar" />
+  </library>
+  <library name="Maven: org.apache.httpcomponents:httpclient:4.5.13">
+    <archive path="/Users/admin/.m2/repository/org/apache/httpcomponents/httpclient/4.5.13/httpclient-4.5.13.jar" />
+  </library>
+</eclipse-userlibraries>
+

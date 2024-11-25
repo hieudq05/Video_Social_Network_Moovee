@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+            rel="stylesheet"
+            href="/node_modules/bootstrap/dist/css/bootstrap.min.css"
+        />
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,300,0,0"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+        />
+        <script src="https://smtpjs.com/v3/smtp.js"></script>
+        <link rel="stylesheet" href="/style.css" />
+        <title>Document</title>
+    </head>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            gap: 27px;
+        }
+        .otp-container {
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+            max-width: 500px;
+            width: 100%;
+        }
+        .otp-input {
+            width: 55px;
+            height: 65px;
+            text-align: center;
+            margin: 0 5px;
+            font-size: 1.7rem;
+            box-shadow: none !important;
+        }
+        .countdown {
+            color: #6c757d;
+        }
+    </style>
+    <body>
+        <div class="otp-container text-center bg-dark-subtle rounded-5 py-5">
+            <div class="mb-4">
+                <h3>Xác Thực Mã OTP</h3>
+                <p class="text-muted fs-7 fw-light m-0">
+                    Nhập mã 6 chữ số được gửi đến gmail của bạn:
+                </p>
+                <div class="fs-7 mt-1" id="email" style="pointer-events: none;">hieuu8a@gmail.com</div>
+            </div>
+
+            <div class="otp-input-container d-flex justify-content-center mb-4">
+                <input
+                    type="text"
+                    maxlength="1"
+                    pattern="\d*"
+                    inputmode="numeric"
+                    class="form-control otp-input rounded-4"
+                    id="otp1"
+                />
+                <input
+                    type="text"
+                    maxlength="1"
+                    pattern="\d*"
+                    inputmode="numeric"
+                    class="form-control otp-input rounded-4"
+                    id="otp2"
+                />
+                <input
+                    type="text"
+                    maxlength="1"
+                    pattern="\d*"
+                    inputmode="numeric"
+                    class="form-control otp-input rounded-4"
+                    id="otp3"
+                />
+                <input
+                    type="text"
+                    maxlength="1"
+                    pattern="\d*"
+                    inputmode="numeric"
+                    class="form-control otp-input rounded-4"
+                    id="otp4"
+                />
+                <input
+                    type="text"
+                    maxlength="1"
+                    pattern="\d*"
+                    inputmode="numeric"
+                    class="form-control otp-input rounded-4"
+                    id="otp5"
+                />
+                <input
+                    type="text"
+                    maxlength="1"
+                    pattern="\d*"
+                    inputmode="numeric"
+                    class="form-control otp-input rounded-4"
+                    id="otp6"
+                />
+            </div>
+
+            <div
+                class="countdown mb-3 fw-light row justify-content-center align-items-center"
+            >
+                <div class="col-auto fs-6">
+                    Mã OTP có hiệu lực: <span id="timer">05:00</span>
+                </div>
+                <button
+                    id="resendBtn"
+                    class="btn bg-transparent border-0 text-primary fw-light col-auto fs-6 p-0"
+                    disabled
+                >
+                    Gửi lại mã
+                    <i class="bi bi-arrow-clockwise ms-1"></i>
+                </button>
+            </div>
+
+            <div class="button-group d-flex flex-column align-items-center">
+                <button
+                    id="verifyBtn"
+                    class="btn btn-light fs-6 rounded-4 px-4 me-2 w-fit"
+                >
+                    Xác Thực
+                </button>
+            </div>
+        </div>
+        <button
+            onclick="window.history.back()"
+            class="btn d-flex justify-content-center align-items-center bg-dark-subtle rounded-4 py-2 border-0 shadow-sm"
+            style="width: fit-content"
+        >
+            <span class="material-symbols-outlined fs-3"> arrow_back </span>
+        </button>
+
+        <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+    <script>
+        // Quản lý input OTP
+        const otpInputs = document.querySelectorAll(".otp-input");
+        const verifyBtn = document.getElementById("verifyBtn");
+        const resendBtn = document.getElementById("resendBtn");
+        const backBtn = document.getElementById("backBtn");
+        const timerDisplay = document.getElementById("timer");
+        const email = document.getElementById("email");
+
+        // Di chuyển giữa các ô input
+        otpInputs.forEach((input, index) => {
+            input.addEventListener("input", (e) => {
+                // Chỉ cho phép nhập số
+                e.target.value = e.target.value.replace(/[^0-9]/g, "");
+
+                // Tự động chuyển sang ô tiếp theo nếu đã nhập số
+                if (
+                    e.target.value.length === 1 &&
+                    index < otpInputs.length - 1
+                ) {
+                    otpInputs[index + 1].focus();
+                }
+            });
+
+            // Cho phép xóa và quay lại ô trước
+            input.addEventListener("keydown", (e) => {
+                if (
+                    e.key === "Backspace" &&
+                    e.target.value === "" &&
+                    index > 0
+                ) {
+                    otpInputs[index - 1].focus();
+                }
+            });
+        });
+
+        // Đếm ngược thời gian
+        let timeLeft = 300; // 5 phút
+        const countdownTimer = setInterval(() => {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+
+            timerDisplay.textContent = `${minutes
+                .toString()
+                .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+
+            if (timeLeft <= 0) {
+                clearInterval(countdownTimer);
+                resendBtn.disabled = false;
+                timerDisplay.textContent = "00:00";
+            }
+
+            timeLeft--;
+        }, 1000);
+
+        // Xác thực OTP
+        verifyBtn.addEventListener("click", () => {
+            const otpCode = Array.from(otpInputs)
+                .map((input) => input.value)
+                .join("");
+
+            if (otpCode.length === 6) {
+                // Xử lý logic xác thực OTP ở đây
+                alert(`Mã OTP: ${otpCode}`);
+                // Có thể gọi AJAX để xác thực
+            } else {
+                alert("Vui lòng nhập đầy đủ 6 chữ số");
+            }
+        });
+
+        // Gửi lại mã OTP
+        resendBtn.addEventListener("click", () => {
+            // Reset timer
+            timeLeft = 300;
+            resendBtn.disabled = true;
+
+            // Gọi hàm gửi lại mã OTP
+            alert("Đã gửi lại mã OTP");
+        });
+    </script>
+</html>
