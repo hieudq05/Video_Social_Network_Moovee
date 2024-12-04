@@ -41,6 +41,7 @@ public class UploadVideoController extends HttpServlet {
             video.setPoster(user);
             video.setPostedDate(LocalDate.now());
             video.setViewCount(0);
+            video.setActive(true);
             basicVideoService.add(video);
         } catch (IllegalAccessException | InvocationTargetException e) {
             throw new RuntimeException(e);

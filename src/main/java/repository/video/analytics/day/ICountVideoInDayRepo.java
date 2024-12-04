@@ -1,5 +1,7 @@
 package repository.video.analytics.day;
 
+import java.time.LocalDate;
+
 public interface ICountVideoInDayRepo {
-    Long getVideoCountInDay();
+    Long getVideoCountInDay(LocalDate localDate);
 }

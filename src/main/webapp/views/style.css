@@ -17,7 +17,7 @@
     width: 25px;
     height: 25px;
     border-radius: 50%;
-    object-fit: cover;
+    object-fit: cover !important;
     aspect-ratio: 1/1 !important;
 }
 .rotate-45 {
@@ -63,7 +63,7 @@
 
 .bg-img {
     height: 200px !important;
-    object-fit: cover;
+    object-fit: cover !important;
     object-position: center;
 }
 
@@ -85,9 +85,10 @@
 }
 
 .user-avt {
-    height: 70px;
-    width: 70px;
+    height: 60px;
+    width: 60px;
     border-radius: 50%;
+    object-fit: cover !important;
 }
 
 .user:hover {

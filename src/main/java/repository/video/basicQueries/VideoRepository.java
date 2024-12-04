@@ -20,7 +20,8 @@ public class VideoRepository implements IVideoRepository {
             entityManager.persist(video);
             return 1;
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            return 0;
         }
     }
 
@@ -30,7 +31,8 @@ public class VideoRepository implements IVideoRepository {
             entityManager.merge(video);
             return 1;
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            return 0;
         }
     }
 
@@ -41,7 +43,8 @@ public class VideoRepository implements IVideoRepository {
             entityManager.remove(video);
             return 1;
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            return 0;
         }
     }
 

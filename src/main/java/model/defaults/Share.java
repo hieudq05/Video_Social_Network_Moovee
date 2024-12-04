@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -27,7 +28,7 @@ public class Share {
     private Video videoShare;
 
     @Column(name = "\"date\"")
-    private LocalDateTime date;
+    private LocalDate date;
 
     @Column(name = "emailReceive", nullable = false, length = 75)
     private String emailReceive;

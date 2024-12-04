@@ -9,7 +9,7 @@ import model.defaults.User;
 
 import java.io.IOException;
 
-@WebFilter("/admin/*")
+@WebFilter({"/admin/*","/choose-page"})
 public class AuthAdminRoleFilter implements HttpFilter {
     @Override
     public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws IOException, ServletException {

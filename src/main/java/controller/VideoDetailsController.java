@@ -7,12 +7,15 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.defaults.Like;
-import model.defaults.User;
-import model.defaults.Video;
+import model.defaults.*;
+import org.apache.commons.beanutils.BeanUtils;
 import org.json.JSONObject;
-import service.like.LikeService;
-import service.like.ILikeService;
+import service.comment.basic.CommentService;
+import service.comment.basic.ICommentService;
+import service.like.basic.LikeService;
+import service.like.basic.ILikeService;
+import service.share.basic.IShareService;
+import service.share.basic.ShareService;
 import service.user.basic.UserService;
 import service.user.basic.IUserService;
 import service.video.basic.VideoService;
@@ -103,10 +106,11 @@ public class VideoDetailsController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         ServletContext servletContext = request.getServletContext();
-        basicUserService = new UserService((EntityManagerFactory) servletContext.getAttribute("entityManagerFactory"));
-        basicVideoService = new VideoService((EntityManagerFactory) servletContext.getAttribute("entityManagerFactory"));
+        EntityManagerFactory entityManagerFactory = (EntityManagerFactory) servletContext.getAttribute("entityManagerFactory");
+        basicUserService = new UserService(entityManagerFactory);
+        basicVideoService = new VideoService(entityManagerFactory);
 
-        JSONObject jsonObject = new JSONBodyMethod().readJSONBody(request);
+        JSONObject jsonObject = JSONBodyMethod.readJSONBody(request);
         User user = basicUserService.selectById(jsonObject.getString("userId"));
         Video video = basicVideoService.selectById(jsonObject.getString("videoId"));
         Boolean isLiked = Boolean.parseBoolean(jsonObject.getString("isLiked"));

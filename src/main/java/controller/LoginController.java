@@ -43,7 +43,7 @@ public class LoginController extends HttpServlet {
                     session.setAttribute("user", userAuth);
                     session.setMaxInactiveInterval(15*60);
                     if(userAuth.getRole()){
-                        response.sendRedirect(request.getContextPath()+"/admin");
+                        response.sendRedirect(request.getContextPath() + "/choose-page");
                     } else {
                         response.sendRedirect(
                                 session.getAttribute("prevUri")==null

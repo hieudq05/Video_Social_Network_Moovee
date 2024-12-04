@@ -3,12 +3,14 @@ package repository.comment.basicQueries;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+import lombok.AllArgsConstructor;
 import model.defaults.Comment;
 import java.util.List;
 
+@AllArgsConstructor
 public class CommentRepository implements ICommentRepository {
 
-    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("video");
+    EntityManagerFactory entityManagerFactory;
 
     @Override
     public int add(Comment comment, EntityManager entityManager) {
@@ -16,7 +18,8 @@ public class CommentRepository implements ICommentRepository {
             entityManager.persist(comment);
             return 1;
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            return 0;
         }
     }
 
@@ -27,7 +30,8 @@ public class CommentRepository implements ICommentRepository {
             entityManager.remove(comment);
             return 1;
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            return 0;
         }
     }
 
@@ -37,7 +41,8 @@ public class CommentRepository implements ICommentRepository {
             entityManager.merge(comment);
             return 1;
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            return 0;
         }
     }
 

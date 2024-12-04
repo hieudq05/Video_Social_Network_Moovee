@@ -181,18 +181,72 @@
         const formSignup = document.getElementById("form-signup");
         const emailCheckStatus = document.getElementById("emailCheckStatus");
 
+        let emailValid = false;
+        let passwordValid = false;
+        let nameValid = false;
+
+        const canSubmit = () => {
+            btnSignup.disabled = !(emailValid && passwordValid && nameValid);
+        };
+
+        const checkEmail = () => {
+            const data = {
+                email: email.value,
+            };
+            const query = new URLSearchParams(data);
+            const options = {
+                method: "GET",
+            };
+            const url =
+                "${pageContext.request.contextPath}/signup/checkExistEmail?" +
+                query;
+            fetch(url, options)
+                .then((response) => {
+                    return response.json();
+                })
+                .then((data) => {
+                    if (data.isExistEmail === "false") {
+                        email.classList.remove("border-danger");
+                        email.classList.add("border-dark-subtle");
+                        emailCheckStatus.innerHTML = "";
+                    } else {
+                        email.classList.add("border-danger");
+                        email.classList.remove("border-dark-subtle");
+                        emailCheckStatus.innerHTML =
+                            "Email đã tồn tại trong hệ thống";
+                    }
+
+                    if (
+                        data.isExistEmail === "false"
+                    ) {
+                        emailValid = true;
+                    } else {
+                        emailValid = false;
+                    }
+
+                    canSubmit();
+                    console.log(canSubmit, emailValid, passwordValid, nameValid);
+                })
+                .catch((error) => {
+                    console.error("Error:", error);
+                });
+        };
+
         btnSignup.disabled = true;
 
         password.addEventListener("input", () => {
             if (
-                email.value !== "" &&
-                regexMail.test(email.value) &&
                 password.value !== "" &&
-                regexPassword.test(password.value) &&
-                name.value !== ""
+                regexPassword.test(password.value)
             ) {
-                btnSignup.disabled = false;
+                passwordValid = true;
+            } else {
+                passwordValid = false;
             }
+
+            canSubmit();
+            console.log(canSubmit, emailValid, passwordValid, nameValid);
+
 
             if (regexUppercase.test(password.value)) {
                 passwordRequire.children[1].children[0].classList.remove(
@@ -229,57 +283,30 @@
 
         name.addEventListener("input", () => {
             if (
-                email.value !== "" &&
-                regexMail.test(email.value) &&
-                password.value !== "" &&
-                regexPassword.test(password.value) &&
                 name.value !== ""
             ) {
-                btnSignup.disabled = false;
+                nameValid = true;
+            } else {
+                nameValid = false;
             }
+            console.log(canSubmit, emailValid, passwordValid, nameValid);
+
+            canSubmit();
         });
 
-        email.addEventListener("focusout", () => {
-            const data = {
-                email: email.value,
-            };
-            const query = new URLSearchParams(data);
-            const options = {
-                method: "GET",
-            };
-            const url =
-                "${pageContext.request.contextPath}/signup/checkExistEmail?" +
-                query;
-            fetch(url, options)
-                .then((response) => {
-                    return response.json();
-                })
-                .then((data) => {
-                    if (data.isExistEmail == "false") {
-                        email.classList.remove("border-danger");
-                        email.classList.add("border-dark-subtle");
-                        emailCheckStatus.innerHTML = "";
-                    } else {
-                        email.classList.add("border-danger");
-                        email.classList.remove("border-dark-subtle");
-                        emailCheckStatus.innerHTML =
-                            "Email đã tồn tại trong hệ thống";
-                    }
+        email.addEventListener("input", () => {
+            if (email.value !== "" && regexMail.test(email.value)) {
+                checkEmail();
+                
+            } else {
+                email.classList.add("border-danger");
+                email.classList.remove("border-dark-subtle");
+                emailCheckStatus.innerHTML = "Email không hợp lệ";
+                emailValid = false;
+                canSubmit();
+            }
+            console.log(canSubmit, emailValid, passwordValid, nameValid);
 
-                    if (
-                        email.value !== "" &&
-                        regexMail.test(email.value) &&
-                        password.value !== "" &&
-                        regexPassword.test(password.value) &&
-                        name.value !== ""
-                        && data.isExistEmail == "false"
-                    ) {
-                        btnSignup.disabled = false;
-                    }
-                })
-                .catch((error) => {
-                    console.error("Error:", error);
-                });
         });
     </script>
 </html>

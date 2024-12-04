@@ -3,13 +3,15 @@ package repository.share.basicQueries;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+import lombok.AllArgsConstructor;
 import model.defaults.Share;
 
 import java.util.List;
 
+@AllArgsConstructor
 public class ShareRepository implements IShareRepository {
 
-    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("video");
+    EntityManagerFactory entityManagerFactory;
 
     @Override
     public int add(Share entity, EntityManager entityManager) {
@@ -17,7 +19,8 @@ public class ShareRepository implements IShareRepository {
             entityManager.persist(entity);
             return 1;
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            return 0;
         }
     }
 
@@ -27,7 +30,8 @@ public class ShareRepository implements IShareRepository {
             entityManager.merge(entity);
             return 1;
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            return 0;
         }
     }
 
@@ -37,7 +41,8 @@ public class ShareRepository implements IShareRepository {
             entityManager.remove(integer);
             return 1;
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            return 0;
         }
     }
 

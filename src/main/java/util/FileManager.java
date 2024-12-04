@@ -10,7 +10,7 @@ import java.io.IOException;
 public class FileManager {
 
     public String addFilePhoto(HttpServletRequest request, String filePathImage) throws IOException, ServletException {
-        String picPath = null;
+        String picPath;
         Part filePart = request.getPart(filePathImage);
         if(filePart != null) {
             if(!filePart.getSubmittedFileName().isEmpty()) {

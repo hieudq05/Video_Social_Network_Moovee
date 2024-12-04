@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.hibernate.annotations.Nationalized;
 
 import java.time.Instant;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -27,7 +28,7 @@ public class Comment {
     private String comment;
 
     @Column(name = "commentDate")
-    private Instant commentDate;
+    private LocalDate commentDate;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JsonBackReference

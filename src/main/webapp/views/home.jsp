@@ -1,5 +1,5 @@
-<%@ page import="service.like.ILikeService" %>
-<%@ page import="service.like.LikeService" %>
+<%@ page import="service.like.basic.ILikeService" %>
+<%@ page import="service.like.basic.LikeService" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
@@ -122,7 +122,7 @@
                                 src="${userAuth.avartar==null?'https://scontent.fsgn2-10.fna.fbcdn.net/v/t1.30497-1/453178253_471506465671661_2781666950760530985_n.png?stp=dst-png_s480x480&_nc_cat=1&ccb=1-7&_nc_sid=136b72&_nc_ohc=8yv9TBiBjIsQ7kNvgF3dcip&_nc_zt=24&_nc_ht=scontent.fsgn2-10.fna&_nc_gid=AdVjad2B7TwGtm9KS_MrMnI&oh=00_AYDuQ4J_D-vgTM-p2x5kvzkWBApzeG-G2TtOQ7r2-Td5Ow&oe=6766823A':userAuth.avartar}"
                                 alt=""
                                 style="height: 30px; width: 30px"
-                                class="rounded-circle"
+                                class="rounded-circle object-fit-cover"
                         />
                     </div>
 
@@ -140,28 +140,19 @@
                                 <span>Xem hồ sơ</span>
                             </a>
                         </li>
-                        <li>
-                            <a
-                                    class="dropdown-item d-flex gap-2 fs-7 align-items-center py-2 pe-5 rounded-3"
-                                    href="${pageContext.request.contextPath}/moovee/profile/"
-                            >
+                        <c:if test="${userAuth.role}">
+                            <li>
+                                <a
+                                        class="dropdown-item d-flex gap-2 fs-7 align-items-center py-2 pe-5 rounded-3"
+                                        href="${pageContext.request.contextPath}/choose-page"
+                                >
                                     <span class="material-symbols-outlined">
-                                        history
+                                        category
                                     </span>
-                                <span>Đã xem</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a
-                                    class="dropdown-item d-flex gap-2 fs-7 align-items-center py-2 pe-5 rounded-3"
-                                    href="#"
-                            >
-                                    <span class="material-symbols-outlined">
-                                        favorite
-                                    </span>
-                                <span>Yêu thích</span>
-                            </a>
-                        </li>
+                                    <span>Thoát</span>
+                                </a>
+                            </li>
+                        </c:if>
                         <li>
                             <a
                                     class="dropdown-item d-flex gap-2 fs-7 align-items-center py-2 pe-5 rounded-3"
@@ -209,7 +200,7 @@
             >
                 <li class="nav-item" role="presentation">
                     <button
-                            class="active py-1-5 nav-link text-light fs-7 text-opacity-50 fw-medium rounded-3"
+                            class="active py-1-5 nav-link text-light fs-7 text-opacity-50 fw-medium rounded-4"
                             id="all"
                             data-bs-toggle="tab"
                             data-bs-target="#home-tab-pane"
@@ -223,7 +214,7 @@
                 </li>
                 <li class="nav-item" role="presentation">
                     <button
-                            class="nav-link text-light fs-7 py-1-5 text-opacity-50 fw-medium rounded-3"
+                            class="nav-link text-light fs-7 py-1-5 text-opacity-50 fw-medium rounded-4"
                             id="trending"
                             data-bs-toggle="tab"
                             data-bs-target="#home-tab-pane"
@@ -237,7 +228,7 @@
                 </li>
                 <li class="nav-item" role="presentation">
                     <button
-                            class="nav-link text-light fs-7 py-1-5 text-opacity-50 fw-medium rounded-3"
+                            class="nav-link text-light fs-7 py-1-5 text-opacity-50 fw-medium rounded-4"
                             id="new"
                             data-bs-toggle="tab"
                             data-bs-target="#profile-tab-pane"
@@ -504,7 +495,7 @@
                                 "</span>" +
                                 "<span class='text-white-50'>•</span>" +
                                 "<span class='text-white-50 fs-8'>" +
-                                    video.postedDate +
+                                    video.postedDate.toString().replaceAll(',', '-') +
                                 "</span>" +
                             "</a>" +
                             "<div class='dropdown'>" +
@@ -554,7 +545,7 @@
             loadMore.classList.remove('d-none');
             loading.classList.add('d-none');
         }
-    };
+    }
 
     var url = "/all";
 

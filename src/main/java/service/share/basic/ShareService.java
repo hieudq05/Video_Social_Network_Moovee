@@ -10,9 +10,12 @@ import java.util.List;
 
 public class ShareService implements IShareService {
 
-    IShareRepository shareRepository = new ShareRepository();
-    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("video");
-
+    IShareRepository shareRepository;
+    EntityManagerFactory entityManagerFactory;
+    public ShareService(EntityManagerFactory entityManagerFactory) {
+        this.entityManagerFactory = entityManagerFactory;
+        this.shareRepository = new ShareRepository(entityManagerFactory);
+    }
 
     @Override
     public List<Share> getShareByUserId(String userId) {

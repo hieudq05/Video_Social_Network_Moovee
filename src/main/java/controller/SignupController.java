@@ -54,8 +54,10 @@ public class SignupController extends HttpServlet {
             userSignup.setActive(true);
             userSignup.setId(UUID.randomUUID().toString());
             userSignup.setRegisterDate(LocalDate.now());
+            userSignup.setCoverImage("https://www.detroitevictiondefense.net/wp-content/themes/miyazaki/assets/images/default-fallback-image.png");
+            userSignup.setAvartar("https://scontent.fsgn2-10.fna.fbcdn.net/v/t1.30497-1/453178253_471506465671661_2781666950760530985_n.png?stp=dst-png_s480x480&_nc_cat=1&ccb=1-7&_nc_sid=136b72&_nc_ohc=8yv9TBiBjIsQ7kNvgF3dcip&_nc_zt=24&_nc_ht=scontent.fsgn2-10.fna&_nc_gid=AdVjad2B7TwGtm9KS_MrMnI&oh=00_AYDuQ4J_D-vgTM-p2x5kvzkWBApzeG-G2TtOQ7r2-Td5Ow&oe=6766823A");
             userSignup.setRole(false);
-            userSignup.setNumber("TEMP-"+UUID.randomUUID().toString());
+            userSignup.setNumber("TEMP-"+ UUID.randomUUID());
             basicUserService.add(userSignup);
             session.setAttribute("user", userSignup);
             response.sendRedirect(request.getContextPath() + "/moovee");

@@ -1,5 +1,6 @@
-<%@ page import="service.like.ILikeService" %>
-<%@ page import="service.like.LikeService" %>
+<%@ page import="service.like.basic.ILikeService" %>
+<%@ page import="service.like.basic.LikeService" %>
+<%@ page import="java.time.LocalDate" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
@@ -46,25 +47,25 @@
 >
     <div class="container-fluid bg-blur px-3 py-3 rounded-0">
         <a href="${pageContext.request.contextPath}/moovee" class="navbar-brand">Moove</a>
-        <%--        <form action="" role="search">--%>
-        <%--            <div class="input-group">--%>
-        <%--                <input--%>
-        <%--                        type="text"--%>
-        <%--                        name="search"--%>
-        <%--                        style="width: 250px"--%>
-        <%--                        class="form-control rounded-start-4 border-secondary-subtle fs-7 shadow-none bg-transparent"--%>
-        <%--                        placeholder="Tìm kiếm video, người dùng..."--%>
-        <%--                />--%>
-        <%--                <button--%>
-        <%--                        class="btn border-secondary-subtle d-flex align-items-center justify-content-center rounded-end-4 bg-dark bg-opacity-50"--%>
-        <%--                        type="submit"--%>
-        <%--                >--%>
-        <%--                            <span class="material-symbols-outlined">--%>
-        <%--                                search--%>
-        <%--                            </span>--%>
-        <%--                </button>--%>
-        <%--            </div>--%>
-        <%--        </form>--%>
+<%--        <form action="" role="search">--%>
+<%--            <div class="input-group">--%>
+<%--                <input--%>
+<%--                        type="text"--%>
+<%--                        name="search"--%>
+<%--                        style="width: 250px"--%>
+<%--                        class="form-control rounded-start-4 border-secondary-subtle fs-7 shadow-none bg-transparent"--%>
+<%--                        placeholder="Tìm kiếm video, người dùng..."--%>
+<%--                />--%>
+<%--                <button--%>
+<%--                        class="btn border-secondary-subtle d-flex align-items-center justify-content-center rounded-end-4 bg-dark bg-opacity-50"--%>
+<%--                        type="submit"--%>
+<%--                >--%>
+<%--                            <span class="material-symbols-outlined">--%>
+<%--                                search--%>
+<%--                            </span>--%>
+<%--                </button>--%>
+<%--            </div>--%>
+<%--        </form>--%>
         <button
                 class="navbar-toggler fs-7 py-2 rounded-4 shadow-none"
                 type="button"
@@ -110,7 +111,7 @@
                                 src="${userAuth.avartar==null?'https://scontent.fsgn2-10.fna.fbcdn.net/v/t1.30497-1/453178253_471506465671661_2781666950760530985_n.png?stp=dst-png_s480x480&_nc_cat=1&ccb=1-7&_nc_sid=136b72&_nc_ohc=8yv9TBiBjIsQ7kNvgF3dcip&_nc_zt=24&_nc_ht=scontent.fsgn2-10.fna&_nc_gid=AdVjad2B7TwGtm9KS_MrMnI&oh=00_AYDuQ4J_D-vgTM-p2x5kvzkWBApzeG-G2TtOQ7r2-Td5Ow&oe=6766823A':userAuth.avartar}"
                                 alt=""
                                 style="height: 30px; width: 30px"
-                                class="rounded-circle"
+                                class="rounded-circle object-fit-cover"
                         />
                     </div>
 
@@ -128,28 +129,19 @@
                                 <span>Xem hồ sơ</span>
                             </a>
                         </li>
-                        <li>
-                            <a
-                                    class="dropdown-item d-flex gap-2 fs-7 align-items-center py-2 pe-5 rounded-3"
-                                    href="#"
-                            >
+                        <c:if test="${userAuth.role}">
+                            <li>
+                                <a
+                                        class="dropdown-item d-flex gap-2 fs-7 align-items-center py-2 pe-5 rounded-3"
+                                        href="${pageContext.request.contextPath}/choose-page"
+                                >
                                     <span class="material-symbols-outlined">
-                                        history
+                                        category
                                     </span>
-                                <span>Đã xem</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a
-                                    class="dropdown-item d-flex gap-2 fs-7 align-items-center py-2 pe-5 rounded-3"
-                                    href="#"
-                            >
-                                    <span class="material-symbols-outlined">
-                                        favorite
-                                    </span>
-                                <span>Yêu thích</span>
-                            </a>
-                        </li>
+                                    <span>Thoát</span>
+                                </a>
+                            </li>
+                        </c:if>
                         <li>
                             <a
                                     class="dropdown-item d-flex gap-2 fs-7 align-items-center py-2 pe-5 rounded-3"
@@ -203,14 +195,14 @@
                             <img
                                     src="${detailsVideo.poster.avartar}"
                                     alt="avatar"
-                                    class="rounded-circle"
-                                    style="width: 30px; height: 30px"
+                                    class="rounded-circle object-fit-cover"
+                                    style="width: 38px; height: 38px"
                             />
                         </a>
                         <div class="d-flex flex-column ms-2 col-auto">
                             <a
                                     href="#"
-                                    class="fw-bold fs-6 text-decoration-none text-light"
+                                    class="fw-medium fs-6 text-decoration-none text-light"
                             >${detailsVideo.poster.fullname}</a
                             >
                             <div
@@ -227,7 +219,7 @@
                                     data-user-id="${userAuth.id}"
                                     data-is-followed="${isLiked}"
                                     data-follow-id="${detailsVideo.poster.id}"
-                                    class="btn h-fit d-flex align-items-center px-3 bg-purple-custom fs-7 fw-medium rounded-3"
+                                    class="btn h-fit d-flex align-items-center px-3 bg-purple-custom fs-7 fw-medium rounded-4"
                             >
                                 <i id="ringFollow" class="bi bi-bell-fill ms-1 d-none"></i>
                                 <div>Theo dõi</div>
@@ -238,15 +230,16 @@
                                 data-video-id="${detailsVideo.id}"
                                 data-user-id="${userAuth.id}"
                                 data-is-liked="${isLiked}"
-                                class="btn bg-secondary bg-opacity-25 fw-medium h-fit border-0 d-flex gap-1 align-items-center fs-6 rounded-3"
+                                class="btn bg-secondary bg-opacity-25 fw-medium h-fit border-0 d-flex gap-1 align-items-center fs-6 rounded-4"
                         >
                             <i class="bi bi-heart"></i>
                             <span>${fn:length(detailsVideo.likes)}</span>
                         </button>
                         <button
                                 id="btnShare"
-
-                                class="btn h-fit d-flex gap-1 align-items-center py-1 fs-7 fw-medium bg-secondary bg-opacity-25 rounded-3"
+                                data-bs-toggle="modal"
+                                data-bs-target="#shareModal"
+                                class="btn h-fit d-flex gap-1 align-items-center py-1 fs-7 fw-medium bg-secondary bg-opacity-25 rounded-4"
                         >
                             <i class="bi bi-reply fs-5 d-flex justify-content-center flip-horizontal"
                                style="height: 24px"></i>
@@ -255,7 +248,7 @@
                     </div>
                 </div>
                 <div
-                        class="fw-bold row m-0 mb-1"
+                        class="fw-medium row m-0 mb-1"
                         style="line-height: normal"
                 >
                     ${detailsVideo.title}
@@ -263,104 +256,83 @@
                 <div class="fs-7 row m-0 mb-2">
                     ${detailsVideo.decription}
                 </div>
-                <div class="d-flex gap-3 text-light text-opacity-75">
-                    <div class="d-flex fs-7 gap-1 align-items-center">
-                        <span class="fw-semibold">${fn:length(detailsVideo.recents)}</span> lượt xem
+                <div class="d-flex gap-2 text-light text-opacity-75">
+                    <div class="d-flex fs-7 gap-1 align-items-center fw-light">
+                        <span id="viewCountDetailsVideo" class="fw-semibold">${fn:length(detailsVideo.recents)}</span> lượt xem
                     </div>
-                    <div class="d-flex fs-7 gap-1 align-items-center">
-                        <span class="fw-semibold">${fn:length(detailsVideo.shares)}</span> lượt chia
+                    <div>•</div>
+                    <div class="d-flex fs-7 gap-1 align-items-center fw-light">
+                        <span id="countShare" class="fw-semibold">${fn:length(detailsVideo.shares)}</span> lượt chia
                         sẻ
                     </div>
                     <div>•</div>
                     <div class="d-flex fs-7 gap-1 align-items-center">
-                        <span class="fw-semibold">${detailsVideo.postedDate}</span>
+                        <span class="">${detailsVideo.postedDate}</span>
                     </div>
                 </div>
             </div>
-            <form class="row m-0 mt-3 gap-2" id="formComment">
+            <div class="row m-0 mt-3 gap-2" id="formComment">
                 <input
                         type="text"
+                        id="inputComment"
                         placeholder="Thêm bình luận..."
-                        class="form-control rounded-3 fs-7 py-2 border-dark-subtle col"
+                        class="form-control rounded-5 fs-7 py-2 border-dark-subtle col bg-secondary bg-opacity-10"
                 />
                 <button
                         id="btnUploadComment"
-                        class="btn bg-white text-dark fs-6 fw-medium rounded-3 col-auto px-3"
+                        class="btn bg-white text-dark fs-7 fw-medium rounded-5 col-auto px-3"
                 >
                     Đăng
                 </button>
-            </form>
+            </div>
             <div class="row m-0 mt-4 gap-3">
-                <c:if test="${fn:length(detailsVideo.comments)>0}">
-                    <div
-                            class="d-flex gap-1 align-items-center p-0"
-                            style="font-size: 1.1rem"
-                    >
-                        <i class="bi bi-chat-fill me-1"></i>
-                        <span class="fw-bold">${fn:length(detailsVideo.comments)}</span>
-                        <span class="fw-bold">Bình luận</span>
-                    </div>
-                    <div
-                            class="row m-0 p-0 gap-4 bg-black bg-opacity-10 p-3 rounded-4"
-                    >
-                        <c:forEach items="${detailsVideo.comments}" var="comment">
-                            <div class="row m-0 p-0 align-items-center">
-                                <div
-                                        class="col d-flex align-items-start p-0 gap-2"
+                <div
+                        class="d-flex gap-1 align-items-center p-0"
+                        style="font-size: 1.1rem"
+                >
+                    <i class="bi bi-chat-fill me-1"></i>
+                    <span class="fw-medium" id="countComment">${fn:length(detailsVideo.comments)}</span>
+                    <span class="fw-medium">Bình luận</span>
+                </div>
+                <div
+                    id="container-comment"
+                    class="row m-0 p-0 gap-4 bg-black bg-opacity-10 p-3 rounded-4"
+                >
+                    <c:forEach items="${detailsVideo.comments}" var="comment">
+                        <div class="row m-0 p-0 align-items-center">
+                            <div
+                                    class="col d-flex align-items-start p-0 gap-2"
+                            >
+                                <a
+                                        href=""
+                                        class="fw-bold text-decoration-none text-light"
                                 >
-                                    <a
-                                            href=""
-                                            class="fw-bold text-decoration-none text-light"
-                                    >
-                                        <img
-                                                src="${comment.userComment.avtImage}"
-                                                class="rounded-circle col-auto"
-                                                style="width: 30px; height: 30px"
-                                        />
-                                    </a>
-                                    <div class="col">
-                                        <div class="fs-7">
-                                            <a
-                                                    href="#"
-                                                    class="fw-bold text-decoration-none text-light"
-                                            >${comment.userComment.fullname}</a
-                                            >
-                                            <span class="text-white-50">•</span>
-                                            <span class="text-white-50 fs-8"
-                                            >${comment.userComment.email}</span
-                                            >
-                                        </div>
-                                        <div class="fw-light fs-7">
-                                                ${comment.comment}
-                                        </div>
+                                    <img
+                                            src="${comment.userComment.avartar}"
+                                            class="rounded-circle col-auto object-fit-cover"
+                                            style="width: 38px; height: 38px"
+                                    />
+                                </a>
+                                <div class="col">
+                                    <div class="fs-7">
+                                        <a
+                                                href="#"
+                                                class="text-decoration-none text-light"
+                                        >${comment.userComment.fullname}</a
+                                        >
+                                        <span class="text-white-50">•</span>
+                                        <span class="text-white-50 fs-8"
+                                        >${comment.commentDate}</span
+                                        >
+                                    </div>
+                                    <div class="fw-light fs-7">
+                                            ${comment.comment}
                                     </div>
                                 </div>
-<%--                                <div class="col-auto p-0">--%>
-<%--                                    <button--%>
-<%--                                            class="btn bg-transparent fs-7 p-0 border-0 px-1 pe-2 rounded-3 d-flex align-items-center justify-content-center"--%>
-<%--                                    >--%>
-<%--                                        <span--%>
-<%--                                                class="material-symbols-outlined fs-5"--%>
-<%--                                        >--%>
-<%--                                            favorite--%>
-<%--                                        </span>--%>
-<%--                                        <span class="fw-medium">9</span>--%>
-<%--                                    </button>--%>
-<%--                                </div>--%>
                             </div>
-                        </c:forEach>
-                    </div>
-                </c:if>
-                <c:if test="${fn:length(detailsVideo.comments)<=0}">
-                    <div
-                            class="d-flex gap-1 align-items-center p-0"
-                            style="font-size: 1.1rem"
-                    >
-                        <i class="bi bi-chat-fill me-1"></i>
-                        <span class="fw-bold">Chưa có bình luận nào</span>
-                    </div>
-                </c:if>
-
+                        </div>
+                    </c:forEach>
+                </div>
             </div>
         </div>
         <div class="col-xl-3 col-lg-4 col-md-12 rounded-4 py-0">
@@ -370,11 +342,11 @@
             >
                 Video liên quan
             </div>
-            <div class="row gy-3 px-md-0 px-4">
+            <div class="row gy-4 px-md-0 px-4">
                 <!-- Video model -->
                 <c:forEach items="${detailsVideo.poster.videos}" var="video">
                     <!-- Video model -->
-                    <c:if test="${video.id != detailsVideo.id}">
+                    <c:if test="${video.id != detailsVideo.id && video.active}">
                         <div class="col-12 col-md-6 col-lg-12 h-100">
                             <div
                                     class="position-relative d-flex flex-column justify-content-between"
@@ -384,14 +356,7 @@
                                         onclick="goToVideo('${video.id}')"
                                         class="w-100 video cursor-pointer object-fit-cover rounded-3 pointer"
                                 />
-                                    <%--                            <div--%>
-                                    <%--                                    class="position-absolute top-0 start-0 z-1 w-fit ps-2 pt-1"--%>
-                                    <%--                            >--%>
-                                    <%--                                    <span--%>
-                                    <%--                                            class="bg-black px-2 py-1 bg-opacity-50 rounded-3 fs-8"--%>
-                                    <%--                                    >26:00</span--%>
-                                    <%--                                    >--%>
-                                    <%--                            </div>--%>
+
                                 <div class="mt-2">
                                     <div class="d-flex justify-content-between">
                                         <a
@@ -403,12 +368,8 @@
                                                     alt="avt"
                                                     class="avt"
                                             />
-                                            <span class="fs-7 fw-medium text-truncate"
+                                            <span class="fs-8 text-truncate fw-light"
                                             >${video.poster.fullname}</span
-                                            >
-                                            <span class="text-white-50">•</span>
-                                            <span class="text-white-50 fs-8"
-                                            >${video.postedDate}</span
                                             >
                                         </a>
                                         <div class="dropdown">
@@ -437,11 +398,11 @@
                                             aria-hidden="true"
                                     >
                                         <div
-                                                class="modal-dialog modal-dialog-centered modal-lg"
+                                                class="modal-dialog modal-dialog-centered"
                                         >
-                                            <div class="modal-content">
+                                            <div class="modal-content rounded-4">
                                                 <div
-                                                        class="modal-header position-relative"
+                                                        class="modal-header position-relative border-bottom-0"
                                                 >
                                                     <div
                                                             class="modal-title fs-5 text-center w-100"
@@ -459,90 +420,26 @@
                                                 <form
                                                         action=""
                                                         method="post"
-                                                        class="modal-body"
+                                                        class="modal-body row m-0 px-3 justify-content-center"
                                                 >
-                                                    <div>
-                                                        <div
-                                                                class="row align-items-center"
-                                                        >
-                                                            <div
-                                                                    class="d-flex gap-2 align-items-center col-5"
-                                                            >
-                                                                <img
-                                                                        src=""
-                                                                        alt="avt"
-                                                                        class="avt"
-                                                                        style="
-                                                                        width: 34px;
-                                                                        height: 34px;
-                                                                    "
-                                                                />
-                                                                <div
-                                                                        class="d-flex flex-column"
-                                                                >
-                                                                    <span
-                                                                            class="fs-7 fw-semibold"
-                                                                    >Name of
-                                                                        author</span
-                                                                    >
-                                                                    <span
-                                                                            class="fs-8"
-                                                                    >hieudqpd10569@gmail.com</span
-                                                                    >
-                                                                </div>
-                                                            </div>
-                                                            <span
-                                                                    class="material-symbols-outlined col-2 justify-content-center d-flex p-0"
-                                                            >
-                                                                forward_to_inbox
-                                                            </span>
-
-                                                            <div
-                                                                    class="d-flex gap-2 align-items-center col-5"
-                                                            >
-                                                                <img
-                                                                        src=""
-                                                                        alt="avt"
-                                                                        class="avt"
-                                                                        style="
-                                                                        width: 34px;
-                                                                        height: 34px;
-                                                                    "
-                                                                />
-                                                                <div
-                                                                        class="d-flex flex-column w-100"
-                                                                >
-                                                                    <span
-                                                                            class="fs-7 fw-semibold"
-                                                                    >Người
-                                                                        nhận</span
-                                                                    >
-                                                                    <input
-                                                                            type="email"
-                                                                            class="form-control fs-8 rounded-0 py-0 border-0 px-0 w-100"
-                                                                            placeholder="Nhập email nguời nhận"
-                                                                    />
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div>
-                                                            <label
-                                                                    class="fs-7 fw-semibold mt-3"
-                                                            >Nội dung</label
-                                                            >
-                                                            <textarea
-                                                                    class="form-control fs-7 fw-light mb-3 rounded-3 py-0 px-2 py-2"
-                                                                    rows="3"
-                                                                    placeholder="Hãy chia sẻ cảm nhận của bạn về video này..."
-                                                            ></textarea>
-                                                        </div>
+                                                    <div
+                                                            class="row m-0 p-0 mb-3 col-12"
+                                                    >
+                                                        <input
+                                                                type="email"
+                                                                id="emailReceive"
+                                                                class="form-control fs-6 rounded-4 col-12 py-2"
+                                                                placeholder="Nhập email nguời nhận"
+                                                        />
                                                     </div>
-
                                                     <button
                                                             type="button"
-                                                            class="btn btn-primary bg-purple-custom border-0 fs-6 rounded-3 w-fit float-end"
+                                                            id="btnSubmitShare"
+                                                            data-bs-dismiss="modal"
+                                                            class="btn btn-primary bg-purple-custom border-0 fs-7 rounded-3 w-fit"
                                                     >
-                                                        Chia sẻ ngay
+                                                        <i class="bi bi-send me-1"></i>
+                                                        Gửi
                                                     </button>
                                                 </form>
                                             </div>
@@ -558,17 +455,17 @@
                                     <div
                                             class="d-flex align-items-center gap-1 text-white-50 fs-8"
                                     >
-                                        <div class="d-flex fs-8 gap-1">
-                                        <span>
-                                                ${video.viewCount}
+                                        <div class="d-flex fs-8 gap-1 fw-light">
+                                        <span id="countView">
+                                                ${fn:length(video.recents)}
                                         </span> lượt xem
                                         </div>
                                         •
-                                        <div class="d-flex fs-8 gap-1">
+                                        <div class="d-flex fs-8 gap-1 fw-light">
                                             <span>${fn:length(video.likes)}</span> thích
                                         </div>
                                         •
-                                        <div class="d-flex fs-8 gap-1">
+                                        <div class="d-flex fs-8 gap-1 fw-light">
                                             ${video.postedDate}
                                         </div>
                                     </div>
@@ -584,7 +481,7 @@
     <%-- Modal Login --%>
     <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="titleModalLogin" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
+            <div class="modal-content rounded-4">
                 <div class="modal-header border-0">
                     <h1 class="modal-title fs-5" id="titleModalLogin">Bạn thích video này?</h1>
                 </div>
@@ -600,22 +497,46 @@
         </div>
     </div>
 
-    <%-- Modal Share --%>
-    <div class="modal fade" id="shareModal" tabindex="-1" aria-labelledby="titleModalShare" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="titleModalShare">Modal title</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    ...
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div
+            id="liveToastShareSuccess"
+            class="toast"
+            role="alert"
+            aria-live="assertive"
+            aria-atomic="true"
+        >
+            <div class="toast-header">
+                <i class="bi bi-check-circle-fill text-success me-1"></i>
+                <strong class="me-auto">Moovee</strong>
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="toast"
+                    aria-label="Close"
+                ></button>
             </div>
+            <div class="toast-body">Chia sẻ video thành công</div>
+        </div>
+    </div>
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div
+            id="liveToastShareError"
+            class="toast"
+            role="alert"
+            aria-live="assertive"
+            aria-atomic="true"
+        >
+            <div class="toast-header">
+                <i class="bi bi-check-circle-fill text-danger me-1"></i>
+                <strong class="me-auto">Moovee</strong>
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="toast"
+                    aria-label="Close"
+                ></button>
+            </div>
+            <div class="toast-body">Chia sẻ video thất bại, vui lòng thử lại!</div>
         </div>
     </div>
 </main>
@@ -625,7 +546,6 @@
     const btnLike = document.getElementById("btn-like");
     const btnShare = document.getElementById("btnShare");
     const btnFollow = document.getElementById("btnFollow");
-    const btnUploadComment = document.getElementById("btnUploadComment");
     const formComment = document.getElementById("formComment");
     const ringFollow = document.getElementById("ringFollow");
     const countFollowOfUser = document.getElementById("countFollowOfUser");
@@ -809,5 +729,127 @@
     })
 </script>
 <script>
+    const btnUploadComment = document.getElementById("btnUploadComment");
+
+    btnUploadComment.addEventListener("click", () => {
+        if(${userAuth.id!=null} && document.getElementById("inputComment").value != ""){
+
+            const inputComment = document.getElementById("inputComment");
+            const countComment = document.getElementById("countComment");
+            const url = "http://localhost:8080/ASSSIGNMENT_war_exploded/moovee/comment";
+
+            const data = {
+                userComment: '${userAuth.id}',
+                videoComment: '${detailsVideo.id}',
+                comment: inputComment.value,
+            }
+
+            const options = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            }
+
+            fetch(url, options)
+                .then((response) => {
+                    btnUploadComment.disabled = true;
+                    return response.json();
+                }).then((data) => {
+                if (data) {
+                    <%
+                        LocalDate currentDate = LocalDate.now();
+                    %>
+                    const containerComment = document.getElementById("container-comment");
+                    const div = document.createElement("div");
+                    div.classList.add("row", "m-0", "p-0", "align-items-center");
+                    div.innerHTML = "<div class='col d-flex align-items-start p-0 gap-2'>" +
+                            "<a href='#' class='fw-bold text-decoration-none text-light'>" +
+                                "<img src='${userAuth.avartar}' class='rounded-circle col-auto object-fit-cover' style='width: 38px; height: 38px'/>" +
+                            "</a>" +
+                            "<div class='col'>" +
+                                "<div class='fs-7'>" +
+                                    "<a href='#' class='text-decoration-none text-light'>${userAuth.fullname}</a>" +
+                                    "<span class='text-white-50 mx-2'>•</span>" +
+                                    "<span class='text-white-50 fs-8'><%=currentDate%></span>" +
+                                "</div>" +
+                                "<div class='fw-light fs-7'>"+inputComment.value+"</div>" +
+                            "</div>" +
+                        "</div>";
+                        containerComment.appendChild(div);
+                        inputComment.value = "";
+                        countComment.textContent = Number.parseInt(countComment.textContent) + 1;
+                        btnUploadComment.disabled = false;
+                } else {
+                    console.error('Error fetching like status: ', data);
+                }
+            }).catch((error) => {
+                console.error('Error: ', error);
+                alert('Không thể kết nối đến server!');
+            });
+        }
+    })
+
+</script>
+<script>
+const btnSubmitShare = document.getElementById("btnSubmitShare");
+const emailReceive = document.getElementById("emailReceive");
+const liveToastShareError = new bootstrap.Toast(document.getElementById('liveToastShareError'));
+const liveToastShareSuccess = new bootstrap.Toast(document.getElementById('liveToastShareSuccess'));
+
+btnSubmitShare.addEventListener("click", () => {
+    if (emailReceive.value != "") {
+        const url = "http://localhost:8080/ASSSIGNMENT_war_exploded/moovee/share";
+
+        const data = {
+            emailReceive: emailReceive.value,
+            videoShare: '${detailsVideo.id}',
+            userShare: '${userAuth.id}',
+        }
+
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        }
+
+        fetch(url, options)
+            .then((response) => {
+                return response.json();
+            }).then((data) => {
+            if (data) {
+                liveToastShareSuccess.show();
+                document.getElementById("countShare").textContent = Number.parseInt(document.getElementById("countShare").textContent) + 1;
+            } else {
+                liveToastShareError.show();
+                console.error('Error fetching like status: ', data);
+            }
+        }).catch((error) => {
+            liveToastShareError.show();
+            console.error('Error: ', error);
+        })
+    }
+});
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        if(${userAuth.id != null}) {
+            setTimeout(() => {
+                fetch("http://localhost:8080/ASSSIGNMENT_war_exploded/moovee/recent", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        videoId: "${detailsVideo.id}",
+                        userId: "${userAuth.id}",
+                    }),
+                })
+            }, 10000)
+        }
+    })
 </script>
 </html>

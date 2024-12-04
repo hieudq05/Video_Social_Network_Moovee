@@ -25,7 +25,7 @@ public class AppLifcycleManager implements ServletContextListener {
         if (sce.getServletContext().getAttribute("entityManagerFactory") != null) {
             EntityManagerFactory emf = (EntityManagerFactory) sce.getServletContext().getAttribute("entityManagerFactory");
             emf.close();
-            System.out.println(LocalDateTime.now() + " EntityManagerFactory closed " + emf.toString());
+            System.out.println(LocalDateTime.now() + " EntityManagerFactory closed " + emf);
         }
     }
 }

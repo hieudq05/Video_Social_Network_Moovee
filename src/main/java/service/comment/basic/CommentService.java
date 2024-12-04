@@ -11,8 +11,12 @@ import java.util.List;
 
 public class CommentService implements ICommentService {
 
-    ICommentRepository commentRepository = new CommentRepository();
-    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("video");
+    ICommentRepository commentRepository;
+    EntityManagerFactory entityManagerFactory;
+    public CommentService(EntityManagerFactory entityManagerFactory) {
+        this.entityManagerFactory = entityManagerFactory;
+        commentRepository = new CommentRepository(entityManagerFactory);
+    }
 
     @Override
     public List<Comment> getCommentsByUser(String id) {

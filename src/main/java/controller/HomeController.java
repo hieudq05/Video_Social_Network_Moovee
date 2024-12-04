@@ -15,6 +15,7 @@ import service.video.pagination.VideoPaginationService;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @WebServlet({"/moovee", "/moovee/trending", "/moovee/new", "/moovee/all"})
 public class HomeController extends HttpServlet {
@@ -37,6 +38,9 @@ public class HomeController extends HttpServlet {
             mapper.registerModule(new JavaTimeModule());
 
             List<VideoInHomeDTO> videos = videoPaginationService.getVideoPageOrderByTitle(page, pageSize);
+            videos = videos.stream()
+                    .filter(VideoInHomeDTO::getActive)
+                    .collect(Collectors.toList());
 
             response.getWriter().write(mapper.writeValueAsString(videos));
 
@@ -48,6 +52,9 @@ public class HomeController extends HttpServlet {
             mapper.registerModule(new JavaTimeModule());
 
             List<VideoInHomeDTO> trendingVideos = videoPaginationService.getVideoPageOrderByLike(page, pageSize);
+            trendingVideos = trendingVideos.stream()
+                    .filter(VideoInHomeDTO::getActive)
+                    .collect(Collectors.toList());
 
             response.getWriter().write(mapper.writeValueAsString(trendingVideos));
 
@@ -59,6 +66,9 @@ public class HomeController extends HttpServlet {
             mapper.registerModule(new JavaTimeModule());
 
             List<VideoInHomeDTO> newVideos = videoPaginationService.getVideoPageOrderByPostedDate(page, pageSize);
+            newVideos = newVideos.stream()
+                    .filter(VideoInHomeDTO::getActive)
+                    .collect(Collectors.toList());
 
             response.getWriter().write(mapper.writeValueAsString(newVideos));
 

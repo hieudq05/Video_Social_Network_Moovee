@@ -3,14 +3,16 @@ package repository.recent.basicQueries;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+import lombok.AllArgsConstructor;
 import model.defaults.Recent;
 
 import java.time.LocalDate;
 import java.util.List;
 
+@AllArgsConstructor
 public class RecentRepository implements IRecentRepository {
 
-    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("video");
+    EntityManagerFactory entityManagerFactory;
 
     @Override
     public int add(Recent recent, EntityManager entityManager) {
@@ -18,7 +20,8 @@ public class RecentRepository implements IRecentRepository {
             entityManager.persist(recent);
             return 1;
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            return 0;
         }
     }
 
@@ -28,7 +31,8 @@ public class RecentRepository implements IRecentRepository {
             entityManager.merge(entity);
             return 1;
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            return 0;
         }
     }
 
@@ -38,7 +42,8 @@ public class RecentRepository implements IRecentRepository {
             entityManager.remove(entityManager.find(Recent.class, recent));
             return 1;
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            return 0;
         }
     }
 

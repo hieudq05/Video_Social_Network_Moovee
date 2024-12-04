@@ -51,142 +51,133 @@
     <c:set value="${fn:length(userAuth.follows)}" var="countFollow"></c:set>
     <c:set value="${fn:length(userAuth.followers)}" var="countFollower"></c:set>
 
-    <!-- Navbar -->
-    <nav
-            class="navbar fixed-top navbar-expand-md py-0 z-3 shadow-lg"
-            style="z-index: 1000 !important"
-    >
-        <div class="container-fluid bg-blur px-3 py-3 rounded-0">
-            <a href="${pageContext.request.contextPath}/moovee" class="navbar-brand">Moove</a>
-            <%--        <form action="" role="search">--%>
-            <%--            <div class="input-group">--%>
-            <%--                <input--%>
-            <%--                        type="text"--%>
-            <%--                        name="search"--%>
-            <%--                        style="width: 250px"--%>
-            <%--                        class="form-control rounded-start-4 border-secondary-subtle fs-7 shadow-none bg-transparent"--%>
-            <%--                        placeholder="Tìm kiếm video, người dùng..."--%>
-            <%--                />--%>
-            <%--                <button--%>
-            <%--                        class="btn border-secondary-subtle d-flex align-items-center justify-content-center rounded-end-4 bg-dark bg-opacity-50"--%>
-            <%--                        type="submit"--%>
-            <%--                >--%>
-            <%--                            <span class="material-symbols-outlined">--%>
-            <%--                                search--%>
-            <%--                            </span>--%>
-            <%--                </button>--%>
-            <%--            </div>--%>
-            <%--        </form>--%>
-            <button
-                    class="navbar-toggler fs-7 py-2 rounded-4 shadow-none"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation"
-            >
-                <span class="navbar-toggler-icon"></span>
-            </button>
+<!-- Navbar -->
+<nav
+        class="navbar fixed-top navbar-expand-md py-0 z-3 shadow-lg"
+        style="z-index: 1000 !important"
+>
+    <div class="container-fluid bg-blur px-3 py-3 rounded-0">
+        <a href="${pageContext.request.contextPath}/moovee" class="navbar-brand">Moove</a>
+<%--        <form action="" role="search">--%>
+<%--            <div class="input-group">--%>
+<%--                <input--%>
+<%--                        type="text"--%>
+<%--                        name="search"--%>
+<%--                        style="width: 250px"--%>
+<%--                        class="form-control rounded-start-4 border-secondary-subtle fs-7 shadow-none bg-transparent"--%>
+<%--                        placeholder="Tìm kiếm video, người dùng..."--%>
+<%--                />--%>
+<%--                <button--%>
+<%--                        class="btn border-secondary-subtle d-flex align-items-center justify-content-center rounded-end-4 bg-dark bg-opacity-50"--%>
+<%--                        type="submit"--%>
+<%--                >--%>
+<%--                            <span class="material-symbols-outlined">--%>
+<%--                                search--%>
+<%--                            </span>--%>
+<%--                </button>--%>
+<%--            </div>--%>
+<%--        </form>--%>
+        <button
+                class="navbar-toggler fs-7 py-2 rounded-4 shadow-none"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+        >
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-            <div
-                    class="collapse navbar-collapse flex-grow-0 gap-3"
-                    id="navbarSupportedContent"
-                    style="width: fit-content"
-            >
-                <c:if test="${userAuth!=null}">
-                    <a
-                            href="${pageContext.request.contextPath}/moovee/upload"
-                            style="
+        <div
+                class="collapse navbar-collapse flex-grow-0 gap-3"
+                id="navbarSupportedContent"
+                style="width: fit-content"
+        >
+            <c:if test="${userAuth!=null}">
+                <a
+                        href="${pageContext.request.contextPath}/moovee/upload"
+                        style="
                             padding-top: 6px;
                             padding-bottom: 6px;
                             width: fit-content;
                         "
-                            class="btn bg-purple-custom border-0 fs-7 fw-medium text-light rounded-4 d-flex align-items-center gap-1"
-                    >
+                        class="btn bg-purple-custom border-0 fs-7 fw-medium text-light rounded-4 d-flex align-items-center gap-1"
+                >
                         <span class="material-symbols-outlined">
                             video_call
                         </span>
-                        Đăng video</a
+                    Đăng video</a
+                >
+            </c:if>
+            <c:if test="${userAuth!=null}">
+                <div class="dropdown">
+                    <div
+                            class="btn p-1 border-0 bg-white rounded-circle shadow-sm"
+                            role="button"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
                     >
-                </c:if>
-                <c:if test="${userAuth!=null}">
-                    <div class="dropdown">
-                        <div
-                                class="btn p-1 border-0 bg-white rounded-circle shadow-sm"
-                                role="button"
-                                data-bs-toggle="dropdown"
-                                aria-expanded="false"
-                        >
-                            <img
-                                    src="${userAuth.avartar==null?'https://scontent.fsgn2-10.fna.fbcdn.net/v/t1.30497-1/453178253_471506465671661_2781666950760530985_n.png?stp=dst-png_s480x480&_nc_cat=1&ccb=1-7&_nc_sid=136b72&_nc_ohc=8yv9TBiBjIsQ7kNvgF3dcip&_nc_zt=24&_nc_ht=scontent.fsgn2-10.fna&_nc_gid=AdVjad2B7TwGtm9KS_MrMnI&oh=00_AYDuQ4J_D-vgTM-p2x5kvzkWBApzeG-G2TtOQ7r2-Td5Ow&oe=6766823A':userAuth.avartar}"
-                                    alt=""
-                                    style="height: 30px; width: 30px"
-                                    class="rounded-circle"
-                            />
-                        </div>
+                        <img
+                                src="${userAuth.avartar==null?'https://scontent.fsgn2-10.fna.fbcdn.net/v/t1.30497-1/453178253_471506465671661_2781666950760530985_n.png?stp=dst-png_s480x480&_nc_cat=1&ccb=1-7&_nc_sid=136b72&_nc_ohc=8yv9TBiBjIsQ7kNvgF3dcip&_nc_zt=24&_nc_ht=scontent.fsgn2-10.fna&_nc_gid=AdVjad2B7TwGtm9KS_MrMnI&oh=00_AYDuQ4J_D-vgTM-p2x5kvzkWBApzeG-G2TtOQ7r2-Td5Ow&oe=6766823A':userAuth.avartar}"
+                                alt=""
+                                style="height: 30px; width: 30px"
+                                class="rounded-circle object-fit-cover"
+                        />
+                    </div>
 
-                        <ul
-                                class="dropdown-menu dropdown-menu-end mt-2 rounded-4 border-0 shadow-lg overflow-hidden bg-dark p-2"
-                        >
-                            <li>
-                                <a
-                                        class="dropdown-item d-flex gap-2 fs-7 align-items-center py-2 pe-5 rounded-3"
-                                        href="${pageContext.request.contextPath}/moovee/profile"
-                                >
+                    <ul
+                            class="dropdown-menu dropdown-menu-end mt-2 rounded-4 border-0 shadow-lg overflow-hidden bg-dark p-2"
+                    >
+                        <li>
+                            <a
+                                    class="dropdown-item d-flex gap-2 fs-7 align-items-center py-2 pe-5 rounded-3"
+                                    href="${pageContext.request.contextPath}/moovee/profile"
+                            >
                                     <span class="material-symbols-outlined">
                                         account_circle
                                     </span>
-                                    <span>Xem hồ sơ</span>
-                                </a>
-                            </li>
+                                <span>Xem hồ sơ</span>
+                            </a>
+                        </li>
+                        <c:if test="${userAuth.role}">
                             <li>
                                 <a
                                         class="dropdown-item d-flex gap-2 fs-7 align-items-center py-2 pe-5 rounded-3"
-                                        href="#"
+                                        href="${pageContext.request.contextPath}/choose-page"
                                 >
                                     <span class="material-symbols-outlined">
-                                        history
+                                        category
                                     </span>
-                                    <span>Đã xem</span>
+                                    <span>Thoát</span>
                                 </a>
                             </li>
-                            <li>
-                                <a
-                                        class="dropdown-item d-flex gap-2 fs-7 align-items-center py-2 pe-5 rounded-3"
-                                        href="#"
-                                >
-                                    <span class="material-symbols-outlined">
-                                        favorite
-                                    </span>
-                                    <span>Yêu thích</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                        class="dropdown-item d-flex gap-2 fs-7 align-items-center py-2 pe-5 rounded-3"
-                                        href="${pageContext.request.contextPath}/moovee/logout"
-                                >
+                        </c:if>
+                        <li>
+                            <a
+                                    class="dropdown-item d-flex gap-2 fs-7 align-items-center py-2 pe-5 rounded-3"
+                                    href="${pageContext.request.contextPath}/moovee/logout"
+                            >
                                     <span class="material-symbols-outlined">
                                         logout
                                     </span>
-                                    <span>Đăng xuất</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </c:if>
+                                <span>Đăng xuất</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </c:if>
 
-                <c:if test="${sessionScope.get('user')==null}">
-                    <a
-                            href="${pageContext.request.contextPath}/login"
-                            class="btn bg-white border-0 fs-7 fw-medium text-dark py-2 rounded-4"
-                    >Đăng nhập</a
-                    >
-                </c:if>
-            </div>
+            <c:if test="${sessionScope.get('user')==null}">
+                <a
+                        href="${pageContext.request.contextPath}/login"
+                        class="btn bg-white border-0 fs-7 fw-medium text-dark py-2 rounded-4"
+                >Đăng nhập</a
+                >
+            </c:if>
         </div>
-    </nav>
+    </div>
+</nav>
 
     <!-- Main -->
     <div class="setup-frame">
@@ -359,7 +350,7 @@
                                                                     class="text-start"
                                                             >
                                                                 <div
-                                                                        class="fs-6 fw-semibold"
+                                                                        class="fs-6 fw-medium"
                                                                 >
                                                                         ${follow.userFollowed.fullname}
                                                                 </div>
@@ -419,7 +410,7 @@
                                                                     class="text-start"
                                                             >
                                                                 <div
-                                                                        class="fs-6 fw-semibold"
+                                                                        class="fs-6 fw-medium"
                                                                 >
                                                                         ${follower.userFollow.fullname}
                                                                 </div>
@@ -993,7 +984,7 @@
             loadMore.classList.remove('d-none');
             loading.classList.add('d-none');
         }
-    };
+    }
 
     var urlMyVideo = "my-video";
 

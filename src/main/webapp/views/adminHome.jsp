@@ -1,6 +1,6 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> <%@ taglib
+prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> <%@ page
+contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="dark">
     <head>
@@ -18,14 +18,21 @@
             rel="stylesheet"
             href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
         />
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/views/style.css" />
+        <link
+            rel="stylesheet"
+            href="${pageContext.request.contextPath}/views/style.css"
+        />
         <title>Document</title>
     </head>
     <body>
+        <c:set value="${sessionScope.get('user')}" var="userAuth"></c:set>
+
         <!-- Navbar -->
         <nav class="navbar fixed-top navbar-expand-md py-0 z-3 shadow-lg">
             <div class="container-fluid bg-dark-subtle px-3 py-3 rounded-0">
-                <a href="/adminHome.html" class="navbar-brand"
+                <a
+                    href="${pageContext.request.contextPath}/admin"
+                    class="navbar-brand"
                     >Moove <span class="fw-medium">Admin</span></a
                 >
                 <button
@@ -58,8 +65,6 @@
                         </li>
                         <li class="nav-item" role="presentation">
                             <a
-                                :class="active === '/admin/users' ? 'active' : ''"
-                                @click="goToManageUsers"
                                 class="pointer nav-link text-light fs-7 text-opacity-50 fw-medium rounded-4"
                                 id="user"
                                 data-bs-toggle="tab"
@@ -73,8 +78,6 @@
                         </li>
                         <li class="nav-item" role="presentation">
                             <a
-                                @click="goToManageVideos"
-                                :class="active.includes('/admin/videos') ? 'active' : ''"
                                 class="nav-link text-light fs-7 text-opacity-50 fw-medium rounded-4"
                                 id="video"
                                 data-bs-toggle="tab"
@@ -87,32 +90,17 @@
                                 Video
                             </a>
                         </li>
-                        <li class="nav-item" role="presentation">
-                            <a
-                                class="nav-link text-light fs-7 text-opacity-50 fw-medium rounded-4"
-                                id="report"
-                                data-bs-toggle="tab"
-                                data-bs-target="#profile-tab-pane"
-                                type="button"
-                                role="tab"
-                                aria-controls="profile-tab-pane"
-                                aria-selected="false"
-                            >
-                                Báo cáo - thống kê
-                            </a>
-                        </li>
                     </ul>
                     <div class="dropdown">
                         <a
                             class="btn p-1 border-0 bg-white rounded-circle shadow-sm"
-                            href="#"
                             role="button"
                             data-bs-toggle="dropdown"
                             aria-expanded="false"
                         >
                             <img
-                                src="/public/wallpaper-4k-hinh-nen-4k-xanh-muot-dep_100025898.jpg"
-                                alt=""
+                                src="${userAuth.avartar==null?'https://scontent.fsgn2-10.fna.fbcdn.net/v/t1.30497-1/453178253_471506465671661_2781666950760530985_n.png?stp=dst-png_s480x480&_nc_cat=1&ccb=1-7&_nc_sid=136b72&_nc_ohc=8yv9TBiBjIsQ7kNvgF3dcip&_nc_zt=24&_nc_ht=scontent.fsgn2-10.fna&_nc_gid=AdVjad2B7TwGtm9KS_MrMnI&oh=00_AYDuQ4J_D-vgTM-p2x5kvzkWBApzeG-G2TtOQ7r2-Td5Ow&oe=6766823A':userAuth.avartar}"
+                                alt="avt"
                                 style="height: 30px; width: 30px"
                                 class="rounded-circle"
                             />
@@ -124,12 +112,12 @@
                             <li>
                                 <a
                                     class="dropdown-item d-flex gap-2 fs-7 align-items-center py-2 pe-5 rounded-3"
-                                    href="#"
+                                    href="${pageContext.request.contextPath}/choose-page"
                                 >
                                     <span class="material-symbols-outlined">
                                         account_circle
                                     </span>
-                                    <span>Xem hồ sơ</span>
+                                    <span>Thoát trình quản lý</span>
                                 </a>
                             </li>
 
@@ -149,12 +137,13 @@
                 </div>
             </div>
         </nav>
+
         <div class="container setup-frame py-5 row mx-auto gap-4">
             <!-- Video Container -->
-            <div class="col-xxl col-lg-5 col-md">
+            <div class="col-xl-4 col-md-5 col-12">
                 <a
                     class="icon-link text-decoration-none icon-link-hover text-white"
-                    href="manageVideo.html"
+                    href="${pageContext.request.contextPath}/admin/manage-video"
                 >
                     Video
                     <i class="bi bi-chevron-right mb-2 fw-bolder text-white-50">
@@ -162,134 +151,40 @@
                     </i>
                 </a>
                 <div class="fs-7 text-white-50 fw-light">
-                    <span>29</span> video được đăng trong hôm nay
+                    <span>${countVideoInDay}</span> video được đăng trong hôm
+                    nay
                 </div>
-                <div
-                    class="row m-0 rounded-4 mt-3 border-secondary border-opacity-25 border-height-1 p-3 gap-2"
-                >
-                    <!-- Video Model -->
-                    <a
-                            href="#"
-                            class="vd text-decoration-none col-12 row m-0 p-2 rounded-4"
-                    >
-                        <img
-                                src="https://i.pinimg.com/736x/0a/f8/bb/0af8bba77716067d579e4f7cadb3d0d5.jpg"
+                <div class="row m-0 rounded-4 mt-3 px-2 gap-3">
+                    <c:forEach items="${recentVideos}" var="video">
+                        <!-- Video Model -->
+                        <a
+                            href="${pageContext.request.contextPath}/admin/report/videos/video?videoId=${video.id}"
+                            class="vd text-decoration-none col-12 row m-0 p-0 rounded-4 bg-secondary bg-opacity-10 border-secondary border-opacity-25 border-height-1 overflow-hidden"
+                        >
+                            <img
+                                src="${video.urlImage}"
                                 alt="background video"
-                                class="ar-video-home rounded-3 p-0 col-5"
-                        />
-                        <div class="col-7 text-white">
-                            <div class="truncate-text">
-                                Video's titlesadasfasd
+                                class="ar-video-home p-0 col-5 h-100 object-fit-cover"
+                            />
+                            <div class="col-7 text-white p-3">
+                                <div class="text-truncate">${video.title}</div>
+                                <div class="fs-8 fw-light">
+                                    ${video.fullnameUser}
+                                </div>
+                                <div class="fs-8 fw-light text-white-50">
+                                    ${video.postedDate}
+                                </div>
                             </div>
-                            <div class="fs-8 fw-light">Dương Quốc Hiếu</div>
-                            <div class="fs-8 fw-light text-white-50">
-                                Đăng ngày 26-10-2024
-                            </div>
-                        </div>
-                    </a>
-                    <a
-                            href="#"
-                            class="vd text-decoration-none col-12 row m-0 p-2 rounded-4"
-                    >
-                        <img
-                                src="https://i.pinimg.com/736x/0a/f8/bb/0af8bba77716067d579e4f7cadb3d0d5.jpg"
-                                alt="background video"
-                                class="ar-video-home rounded-3 p-0 col-5"
-                        />
-                        <div class="col-7 text-white">
-                            <div class="truncate-text">
-                                Video's titlesadasfasd
-                            </div>
-                            <div class="fs-8 fw-light">Dương Quốc Hiếu</div>
-                            <div class="fs-8 fw-light text-white-50">
-                                Đăng ngày 26-10-2024
-                            </div>
-                        </div>
-                    </a>
-                    <a
-                            href="#"
-                            class="vd text-decoration-none col-12 row m-0 p-2 rounded-4"
-                    >
-                        <img
-                                src="https://i.pinimg.com/736x/0a/f8/bb/0af8bba77716067d579e4f7cadb3d0d5.jpg"
-                                alt="background video"
-                                class="ar-video-home rounded-3 p-0 col-5"
-                        />
-                        <div class="col-7 text-white">
-                            <div class="truncate-text">
-                                Video's titlesadasfasd
-                            </div>
-                            <div class="fs-8 fw-light">Dương Quốc Hiếu</div>
-                            <div class="fs-8 fw-light text-white-50">
-                                Đăng ngày 26-10-2024
-                            </div>
-                        </div>
-                    </a>
-                    <a
-                            href="#"
-                            class="vd text-decoration-none col-12 row m-0 p-2 rounded-4"
-                    >
-                        <img
-                                src="https://i.pinimg.com/736x/0a/f8/bb/0af8bba77716067d579e4f7cadb3d0d5.jpg"
-                                alt="background video"
-                                class="ar-video-home rounded-3 p-0 col-5"
-                        />
-                        <div class="col-7 text-white">
-                            <div class="truncate-text">
-                                Video's titlesadasfasd
-                            </div>
-                            <div class="fs-8 fw-light">Dương Quốc Hiếu</div>
-                            <div class="fs-8 fw-light text-white-50">
-                                Đăng ngày 26-10-2024
-                            </div>
-                        </div>
-                    </a>
-                    <a
-                            href="#"
-                            class="vd text-decoration-none col-12 row m-0 p-2 rounded-4"
-                    >
-                        <img
-                                src="https://i.pinimg.com/736x/0a/f8/bb/0af8bba77716067d579e4f7cadb3d0d5.jpg"
-                                alt="background video"
-                                class="ar-video-home rounded-3 p-0 col-5"
-                        />
-                        <div class="col-7 text-white">
-                            <div class="truncate-text">
-                                Video's titlesadasfasd
-                            </div>
-                            <div class="fs-8 fw-light">Dương Quốc Hiếu</div>
-                            <div class="fs-8 fw-light text-white-50">
-                                Đăng ngày 26-10-2024
-                            </div>
-                        </div>
-                    </a>
-                    <a
-                            href="#"
-                            class="vd text-decoration-none col-12 row m-0 p-2 rounded-4"
-                    >
-                        <img
-                                src="https://i.pinimg.com/736x/0a/f8/bb/0af8bba77716067d579e4f7cadb3d0d5.jpg"
-                                alt="background video"
-                                class="ar-video-home rounded-3 p-0 col-5"
-                        />
-                        <div class="col-7 text-white">
-                            <div class="truncate-text">
-                                Video's titlesadasfasd
-                            </div>
-                            <div class="fs-8 fw-light">Dương Quốc Hiếu</div>
-                            <div class="fs-8 fw-light text-white-50">
-                                Đăng ngày 26-10-2024
-                            </div>
-                        </div>
-                    </a>
+                        </a>
+                    </c:forEach>
                 </div>
             </div>
 
             <!-- User Container -->
-            <div class="col-xxl col-lg-5 col-md">
+            <div class="col-xl col-md-5 col-12">
                 <a
                     class="icon-link text-decoration-none icon-link-hover text-white"
-                    href="#"
+                    href="${pageContext.request.contextPath}/admin/manage-user"
                 >
                     Người dùng
                     <i class="bi bi-chevron-right mb-2 fw-bolder text-white-50">
@@ -297,97 +192,104 @@
                     </i>
                 </a>
                 <div class="fs-7 text-white-50 fw-light">
-                    <span>999</span> người dùng đã đăng ký tài khoản
+                    <span>${countUser}</span> người dùng đã đăng ký tài khoản
                 </div>
-                <div
-                    class="row m-0 rounded-4 mt-3 border-secondary border-opacity-25 border-height-1 p-3 gap-2"
-                >
-                    <!-- User Model -->
-                    <a
-                        href="#"
-                        class="user text-decoration-none col-12 row m-0 p-2 rounded-4"
-                    >
-                        <img
-                            src="https://i.pinimg.com/736x/6d/db/d5/6ddbd536eb112e2441ac83a3842db937.jpg"
-                            alt="background video"
-                            class="user-avt p-0 col-5"
-                        />
-                        <div class="col-7 text-white">
-                            <div class="text-truncate">Dương Quốc Hiếu</div>
-                            <div class="fs-8 fw-light">2610 người theo dõi</div>
-                            <div class="fs-8 fw-light text-white-50">
-                                Đăng video gần đây
+                <div class="row m-0 rounded-4 mt-3 px-2 gap-3">
+                    <c:forEach items="${users}" var="user" varStatus="uStatus">
+                        <!-- User Model -->
+                        <a
+                            href="${pageContext.request.contextPath}/admin/report/users/user?userId=${user.userId}"
+                            class="user text-decoration-none col-12 row m-0 p-3 rounded-4 bg-secondary bg-opacity-10 border-secondary border-opacity-25 border-height-1"
+                        >
+                            <img
+                                src="${user.avatarImage}"
+                                alt="background video"
+                                class="user-avt p-0 col-5"
+                            />
+                            <div class="col text-white pe-0">
+                                <div class="truncate-text">
+                                    ${user.fullName}
+                                </div>
+                                <div class="fs-8 fw-light text-white-50">
+                                    <span class="fs-6"
+                                        >#${uStatus.index+1}</span
+                                    >
+                                    số người theo dõi
+                                </div>
                             </div>
-                        </div>
-                    </a>
+                        </a>
+                    </c:forEach>
                 </div>
             </div>
 
             <!-- Report Container -->
-            <div class="col-xxl-5 col-md-12 mb-md-5">
-                <a
-                    href="#"
-                    class="icon-link text-decoration-none icon-link-hover text-white"
+            <div class="col-md-12 col-xl-4 mb-md-5 col-12">
+                <div
+                    class=""
                 >
                     Báo cáo - thống kê
-                    <i class="bi bi-chevron-right mb-2 fw-bolder text-white-50">
-                        <use xlink:href="#arrow-right"></use>
-                    </i>
-                </a>
+                </div>
                 <div class="fs-7 text-white-50 fw-light">
                     Báo cáo thống kế số liệu liên quan như lượt xem, lượt thích,
                     ...
                 </div>
                 <div
-                    class="row m-0 rounded-4 mt-3 border-secondary border-opacity-25 border-height-1 p-4 gap-4"
+                    class="row m-0 rounded-4 mt-3 bg-secondary bg-opacity-10 border-secondary border-opacity-25 border-height-1 p-4 gap-2"
                 >
                     <div class="row m-0 p-0">
                         <div
                             class="col-6 pe-4 border-right-1 border-secondary-subtle"
                         >
-                            <div class="fs-1 fw-medium">2610</div>
-                            <div class="fs-6 fw-light">Tổng số lượt xem</div>
+                            <div class="fs-1 fw-medium">
+                                ${countViewCurrMonth}
+                            </div>
+                            <div class="fs-6 fw-light text-white-50">Tổng số lượt xem</div>
                             <div class="fs-6 text-success">
                                 <span
+                                    id="data-trending-view"
                                     class="material-symbols-outlined position-relative me-1"
                                     style="top: 5px"
                                 >
                                     trending_up
                                 </span>
-                                <span>Tăng 209% so với hôm qua</span>
+                                <span
+                                    ><span id="data-view">Tăng 209%</span> so
+                                    với tháng trước</span
+                                >
                             </div>
                         </div>
                         <div class="col-6 ps-4">
-                            <div class="fs-1 fw-medium">99</div>
-                            <div class="fs-6 fw-light">Tổng số lượt xem</div>
+                            <div class="fs-1 fw-medium">
+                                ${countLikeCurrMonth}
+                            </div>
+                            <div class="fs-6 fw-light text-white-50">Tổng số lượt thích</div>
                             <div class="fs-6 text-danger">
                                 <span
+                                    id="data-trending-like"
                                     class="material-symbols-outlined position-relative me-1"
                                     style="top: 5px"
                                 >
                                     trending_down
                                 </span>
-                                <span>Giảm 9% so với hôm qua</span>
+                                <span
+                                    ><span id="data-like">Giảm 9%</span> so với
+                                    tháng trước</span
+                                >
                             </div>
                         </div>
                     </div>
-                    <div class="d-flex flex-wrap gap-3">
+                    <!-- <div class="d-flex flex-wrap gap-3">
                         <a
                             class="btn btn-light rounded-4 btn-sm px-3 fs-7 fw-medium"
                         >
-                            Xem báo cáo về người dùng
-                        </a>
-                        <a
-                            class="btn btn-light rounded-4 btn-sm px-3 fs-7 fw-medium"
-                        >
-                            Video thịnh hành
+                            Báo cáo về người dùng
                         </a>
                         <a
                             class="btn btn-light rounded-4 btn-sm px-3 fs-7 fw-medium"
                         >
                             Chi tiết số liệu từng video
                         </a>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -397,18 +299,53 @@
         const home = document.getElementById("home");
         const user = document.getElementById("user");
         const video = document.getElementById("video");
-        const report = document.getElementById("report");
+        const dataView = document.getElementById("data-view");
+        const dataLike = document.getElementById("data-like");
+        const dataTrendingLike = document.getElementById("data-trending-like");
+        const dataTrendingView = document.getElementById("data-trending-view");
+
+        if(${countViewCurrMonth - countViewPrevMonth == 0}){
+            dataTrendingView.innerHTML = "trending_flat"
+            dataTrendingView.classList.add("text-warning");
+            dataView.innerText = `Không tăng`;
+            dataView.parentElement.classList.add("text-warning");
+        } else if (${countViewCurrMonth > countViewPrevMonth}) {
+            dataTrendingView.innerHTML = "trending_up"
+            dataTrendingView.classList.add("text-success");
+            dataView.innerText = `Tăng <fmt:formatNumber value="${(countViewCurrMonth / (countViewPrevMonth>0?countViewPrevMonth:1)) * 100}" maxFractionDigits="2" groupingUsed="false"/>%`;
+            dataView.parentElement.classList.add("text-success");
+        } else {
+            dataTrendingView.innerHTML = "trending_down"
+            dataTrendingView.classList.add("text-danger");
+            dataView.innerText = `Giảm <fmt:formatNumber value="${(countViewCurrMonth / (countViewPrevMonth>0?countViewPrevMonth:1)) * 100}" maxFractionDigits="2" groupingUsed="false"/>%`;
+            dataView.parentElement.classList.add("text-danger");
+        }
+
+        if(${countLikeCurrMonth - countLikePrevMonth == 0}){
+            dataTrendingLike.innerHTML = "trending_flat"
+            dataTrendingLike.classList.add("text-warning");
+            dataLike.innerText = `Không tăng`;
+            dataLike.parentElement.classList.add("text-warning");
+        } else if (${countLikeCurrMonth > countLikePrevMonth}) {
+            dataTrendingLike.innerHTML = "trending_up"
+            dataTrendingLike.classList.add("text-success");
+            dataLike.innerText = `Tăng <fmt:formatNumber value="${(countLikeCurrMonth / (countLikePrevMonth>0?countLikePrevMonth:1)) * 100}" maxFractionDigits="2" groupingUsed="false"/>%`;
+            dataLike.parentElement.classList.add("text-success");
+        } else {
+            dataTrendingLike.innerHTML = "trending_down"
+            dataTrendingLike.classList.add("text-danger");
+            dataLike.innerText = `Giảm <fmt:formatNumber value="${(countLikeCurrMonth / (countLikePrevMonth>0?countLikePrevMonth:1)) * 100}" maxFractionDigits="2" groupingUsed="false"/>%`;
+            dataLike.parentElement.classList.add("text-danger");
+        }
+
         home.addEventListener("click", () => {
-            location.href = "/adminHome.html";
+            location.href = "${pageContext.request.contextPath}/admin";
         });
         user.addEventListener("click", () => {
-            location.href = "/manageUser.html";
+            location.href = "${pageContext.request.contextPath}/admin/manage-user";
         });
         video.addEventListener("click", () => {
-            location.href = "/manageVideo.html";
-        });
-        report.addEventListener("click", () => {
-            location.href = "/report.html";
+            location.href = "${pageContext.request.contextPath}/admin/manage-video";
         });
     </script>
 </html>

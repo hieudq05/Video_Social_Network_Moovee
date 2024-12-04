@@ -19,16 +19,15 @@ public class VideoPaginationRepository implements IVideoPaginationRepository {
 
     @Override
     public List<VideoInHomeDTO> getVideoPageOrderByTitle(int page, int pageSize) {
-        System.out.println(entityManagerFactory);
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         try {
             return entityManager.createQuery("""
-                        SELECT new model.DTO.VideoInHomeDTO(v.id, v.urlImage, v.title, v.postedDate, COUNT(l.videoLike.id) , COUNT(r.videoRecent.id), v.active , u.fullname, u.coverImage, u.id)
+                        SELECT new model.DTO.VideoInHomeDTO(v.id, v.urlImage, v.title, v.postedDate, COUNT(l.videoLike.id) , COUNT(r.videoRecent.id), v.active , u.fullname, u.avartar, u.id)
                         FROM Video v
                         LEFT JOIN Like l ON l.videoLike.id = v.id
                         LEFT JOIN Recent r ON r.videoRecent.id = v.id
                         JOIN User u ON u.id = v.poster.id
-                        GROUP BY v.id, v.title, v.urlImage, v.postedDate, v.active, u.id, u.fullname, u.coverImage
+                        GROUP BY v.id, v.title, v.urlImage, v.postedDate, v.active, u.id, u.fullname, u.avartar
                         ORDER BY v.title
                     """, VideoInHomeDTO.class)
                     .setFirstResult(page*pageSize)
@@ -45,12 +44,12 @@ public class VideoPaginationRepository implements IVideoPaginationRepository {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         try {
             return entityManager.createQuery("""
-                        SELECT new model.DTO.VideoInHomeDTO(v.id, v.urlImage, v.title, v.postedDate, COUNT(l.videoLike.id) , COUNT(r.videoRecent.id), v.active , u.fullname, u.coverImage, u.id)
+                        SELECT new model.DTO.VideoInHomeDTO(v.id, v.urlImage, v.title, v.postedDate, COUNT(l.videoLike.id) , COUNT(r.videoRecent.id), v.active , u.fullname, u.avartar, u.id)
                         FROM Video v
                         LEFT JOIN Like l ON l.videoLike.id = v.id
                         LEFT JOIN Recent r ON r.videoRecent.id = v.id
                         JOIN User u ON u.id = v.poster.id
-                        GROUP BY v.id, v.title, v.urlImage, v.postedDate, v.active, u.id, u.fullname, u.coverImage
+                        GROUP BY v.id, v.title, v.urlImage, v.postedDate, v.active, u.id, u.fullname, u.avartar
                         ORDER BY COUNT(l.videoLike.id) DESC 
                     """, VideoInHomeDTO.class)
                     .setFirstResult(page*pageSize)
@@ -112,12 +111,12 @@ public class VideoPaginationRepository implements IVideoPaginationRepository {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         try {
             return entityManager.createQuery("""
-                        SELECT new model.DTO.VideoInHomeDTO(v.id, v.urlImage, v.title, v.postedDate, COUNT(l.videoLike.id) , COUNT(r.videoRecent.id), v.active , u.fullname, u.coverImage, u.id)
+                        SELECT new model.DTO.VideoInHomeDTO(v.id, v.urlImage, v.title, v.postedDate, COUNT(l.videoLike.id) , COUNT(r.videoRecent.id), v.active , u.fullname, u.avartar, u.id)
                         FROM Video v
                         LEFT JOIN Like l ON l.videoLike.id = v.id
                         LEFT JOIN Recent r ON r.videoRecent.id = v.id
                         JOIN User u ON u.id = v.poster.id
-                        GROUP BY v.id, v.title, v.urlImage, v.postedDate, v.active, u.id, u.fullname, u.coverImage
+                        GROUP BY v.id, v.title, v.urlImage, v.postedDate, v.active, u.id, u.fullname, u.avartar
                         ORDER BY v.postedDate DESC
                             """, VideoInHomeDTO.class
                     )

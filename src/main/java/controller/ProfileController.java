@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import model.defaults.User;
 import model.defaults.Video;
 import org.apache.commons.beanutils.BeanUtils;
-import service.recent.pagination.VideoRecentlyPaginationService;
+import service.video.pagination.VideoRecentlyPaginationService;
 import service.user.basic.UserService;
 import service.user.basic.IUserService;
 import service.video.pagination.IVideoPaginationService;
@@ -77,7 +77,10 @@ public class ProfileController extends HttpServlet {
 
             List<Video> myVideos = videoRecentlyPaginationService.getVideoRecentPageOfUserOrderByDate(page, pageSize, user.getId());
 
-            response.getWriter().write(mapper.writeValueAsString(myVideos));
+            Set<Video> setVideo = new HashSet<>();
+            setVideo.addAll(myVideos);
+
+            response.getWriter().write(mapper.writeValueAsString(setVideo));
 
         } else if (request.getRequestURI().contains("favorite")) {
 

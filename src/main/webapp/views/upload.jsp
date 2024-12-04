@@ -31,25 +31,25 @@
 >
     <div class="container-fluid bg-blur px-3 py-3 rounded-0">
         <a href="${pageContext.request.contextPath}/moovee" class="navbar-brand">Moove</a>
-        <%--        <form action="" role="search">--%>
-        <%--            <div class="input-group">--%>
-        <%--                <input--%>
-        <%--                        type="text"--%>
-        <%--                        name="search"--%>
-        <%--                        style="width: 250px"--%>
-        <%--                        class="form-control rounded-start-4 border-secondary-subtle fs-7 shadow-none bg-transparent"--%>
-        <%--                        placeholder="Tìm kiếm video, người dùng..."--%>
-        <%--                />--%>
-        <%--                <button--%>
-        <%--                        class="btn border-secondary-subtle d-flex align-items-center justify-content-center rounded-end-4 bg-dark bg-opacity-50"--%>
-        <%--                        type="submit"--%>
-        <%--                >--%>
-        <%--                            <span class="material-symbols-outlined">--%>
-        <%--                                search--%>
-        <%--                            </span>--%>
-        <%--                </button>--%>
-        <%--            </div>--%>
-        <%--        </form>--%>
+<%--        <form action="" role="search">--%>
+<%--            <div class="input-group">--%>
+<%--                <input--%>
+<%--                        type="text"--%>
+<%--                        name="search"--%>
+<%--                        style="width: 250px"--%>
+<%--                        class="form-control rounded-start-4 border-secondary-subtle fs-7 shadow-none bg-transparent"--%>
+<%--                        placeholder="Tìm kiếm video, người dùng..."--%>
+<%--                />--%>
+<%--                <button--%>
+<%--                        class="btn border-secondary-subtle d-flex align-items-center justify-content-center rounded-end-4 bg-dark bg-opacity-50"--%>
+<%--                        type="submit"--%>
+<%--                >--%>
+<%--                            <span class="material-symbols-outlined">--%>
+<%--                                search--%>
+<%--                            </span>--%>
+<%--                </button>--%>
+<%--            </div>--%>
+<%--        </form>--%>
         <button
                 class="navbar-toggler fs-7 py-2 rounded-4 shadow-none"
                 type="button"
@@ -95,7 +95,7 @@
                                 src="${userAuth.avartar==null?'https://scontent.fsgn2-10.fna.fbcdn.net/v/t1.30497-1/453178253_471506465671661_2781666950760530985_n.png?stp=dst-png_s480x480&_nc_cat=1&ccb=1-7&_nc_sid=136b72&_nc_ohc=8yv9TBiBjIsQ7kNvgF3dcip&_nc_zt=24&_nc_ht=scontent.fsgn2-10.fna&_nc_gid=AdVjad2B7TwGtm9KS_MrMnI&oh=00_AYDuQ4J_D-vgTM-p2x5kvzkWBApzeG-G2TtOQ7r2-Td5Ow&oe=6766823A':userAuth.avartar}"
                                 alt=""
                                 style="height: 30px; width: 30px"
-                                class="rounded-circle"
+                                class="rounded-circle object-fit-cover"
                         />
                     </div>
 
@@ -113,28 +113,19 @@
                                 <span>Xem hồ sơ</span>
                             </a>
                         </li>
-                        <li>
-                            <a
-                                    class="dropdown-item d-flex gap-2 fs-7 align-items-center py-2 pe-5 rounded-3"
-                                    href="#"
-                            >
+                        <c:if test="${userAuth.role}">
+                            <li>
+                                <a
+                                        class="dropdown-item d-flex gap-2 fs-7 align-items-center py-2 pe-5 rounded-3"
+                                        href="${pageContext.request.contextPath}/choose-page"
+                                >
                                     <span class="material-symbols-outlined">
-                                        history
+                                        category
                                     </span>
-                                <span>Đã xem</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a
-                                    class="dropdown-item d-flex gap-2 fs-7 align-items-center py-2 pe-5 rounded-3"
-                                    href="#"
-                            >
-                                    <span class="material-symbols-outlined">
-                                        favorite
-                                    </span>
-                                <span>Yêu thích</span>
-                            </a>
-                        </li>
+                                    <span>Thoát</span>
+                                </a>
+                            </li>
+                        </c:if>
                         <li>
                             <a
                                     class="dropdown-item d-flex gap-2 fs-7 align-items-center py-2 pe-5 rounded-3"

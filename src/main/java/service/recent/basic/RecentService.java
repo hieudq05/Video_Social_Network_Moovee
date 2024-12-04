@@ -12,8 +12,13 @@ import java.util.List;
 
 public class RecentService implements IRecentService {
 
-    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("video");
-    IRecentRepository recentRepository = new RecentRepository();
+    EntityManagerFactory entityManagerFactory;
+    IRecentRepository recentRepository;
+
+    public RecentService(EntityManagerFactory entityManagerFactory) {
+        this.entityManagerFactory = entityManagerFactory;
+        recentRepository = new RecentRepository(entityManagerFactory);
+    }
 
     @Override
     public List<Recent> getRecentsByDate(LocalDate date) {

@@ -15,7 +15,11 @@ public class AuthUserLoginSignupFilter implements HttpFilter {
     public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws IOException, ServletException {
         User user = (User) request.getSession().getAttribute("user");
         if (user != null) {
-            response.sendRedirect(request.getContextPath() + "/moovee");
+            if(user.getRole().equals(true)) {
+                response.sendRedirect(request.getContextPath() + "/choose-page");
+            } else {
+                response.sendRedirect(request.getContextPath() + "/moovee");
+            }
         } else {
             filterChain.doFilter(request, response);
         }
